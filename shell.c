@@ -4,7 +4,7 @@
  * Return: always 0
  */
 
-int main(int argc __attribute__((unused)), char **argv)
+int main(int argc __attribute__((unused)), char **argv, char **env)
 {
 	pid_t child_pid;
 	int stat;
@@ -63,7 +63,6 @@ int main(int argc __attribute__((unused)), char **argv)
 
 			}
 		}
-		
 	}
 	return (0);
 }
