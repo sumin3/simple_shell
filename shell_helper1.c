@@ -1,31 +1,4 @@
 #include "holberton.h"
-/** check_input - checks command for newline character
- * @buff: input string to check for newline
- * Return: 1 if found, 0 otherwise
- * Description: checks the input for newline character
- * if newline character is found then remove newline and 
- * proceed as normal.  otherwise return 0 to stop normal
- * processing because CTRL-D with text is fond so need to
- * handle differently
- */
-int check_input(char *buff)
-{
-	int i = 0, found = 0;
-
-	while (buff[i])
-	{
-		if (buff[i] == '\n')
-		{
-			found = 1;
-			buff[i] = '\0';
-		}
-		i++;
-	}
-	if (found)
-		return(1);
-	else
-		return(0);
-}
 /**
  * check_exit - checks if argument is exit.  
  * @argv: pointer to string to check
@@ -80,9 +53,9 @@ char *_strdup(char *str)
  */
 char **create_arg_list(char **stored, char *buff)
 {
-        int count = 0, i = 0;
+        int count = 0;
         char *toprint, *buffdup;
-	const char *delim = " ";
+	const char *delim = " \n";
 
         buffdup = _strdup(buff);
         toprint = strtok(buffdup, delim);
@@ -101,12 +74,6 @@ char **create_arg_list(char **stored, char *buff)
                 toprint = strtok(NULL, delim);
                 count++;
         }
-	while (stored[count - 1][i])
-	{
-		if (stored[count - 1][i] == '\n')
-			printf("found newline\n");
-		i++;
-	}
         stored[count]  = NULL;
         while (stored[count])
         {
