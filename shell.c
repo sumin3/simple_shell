@@ -13,7 +13,6 @@ int main(int argc __attribute__((unused)), char **argv, char **env)
 	size_t br = 0;
 	ssize_t read;
 
-
 	while (1)
 	{
 		if (isatty(STDIN_FILENO))
@@ -27,7 +26,7 @@ int main(int argc __attribute__((unused)), char **argv, char **env)
 		}
 		if (buff && buff[0] != '\n')
 		{
-			stored = create_arg_list(stored, buff);
+			stored = create_arg_list(stored, buff, " \n");
 			check_exit(stored, buff);
 
 			/*if (check_exit(stored[0], stored, buff))
