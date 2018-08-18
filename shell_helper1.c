@@ -51,11 +51,10 @@ char *_strdup(char *str)
  * @buff: buffer to get argument list from
  * Return: pointer to pointer of argument list
  */
-char **create_arg_list(char **stored, char *buff)
+char **create_arg_list(char **stored, char *buff, const char *delim)
 {
         int count = 0;
         char *toprint, *buffdup;
-	const char *delim = " \n";
 
         buffdup = _strdup(buff);
         toprint = strtok(buffdup, delim);

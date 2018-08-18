@@ -35,7 +35,7 @@ char *_strdup(char *str);
  * @buff: buffer to get argument list from
  * Return: pointer to pointer of argument list
  */
-char **create_arg_list(char **stored, char *buff);
+char **create_arg_list(char **stored, char *buff, const char *delim);
 
 /**
  * check_exit - checks if argument is exit.  
