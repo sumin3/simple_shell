@@ -27,9 +27,11 @@ char *path_helper(char *path, char *command)
 			return (concat_path);
 		}
 		i++;
+		free(concat_path);
 	}
 	free(path_cp);
 	free(path_tk);
+	
 	write(1, command, _strlen(command));
 	write(1, ": command not found\n", 20);
 	return (NULL);
