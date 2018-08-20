@@ -63,7 +63,7 @@ char *_getenv(char *name, char **env);
 char *_strcat(char *dest, char *src, char *str);
 char *path_helper(char *path, char *command);
 int _strlen(char *s);
-
+char* num_to_str(size_t n);
 /** check_input - checks command for newline character
  * @buff: input string to check for newline
  * Return: 1 if found, 0 otherwise
