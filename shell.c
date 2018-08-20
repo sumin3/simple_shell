@@ -20,7 +20,6 @@ int main(int argc __attribute__((unused)), char **argv, char **env)
 		if (isatty(STDIN_FILENO))
 			write(STDOUT_FILENO, "$> ", 3);
 		read = getline(&buff, &br, stdin);
-		printf("buffer = %s\n", buff);
 		if (read == 0)
 			break;
 		if (read == -1)
@@ -32,39 +31,42 @@ int main(int argc __attribute__((unused)), char **argv, char **env)
 			buff_tk = create_arg_list(buff_tk, buff, " \n");
 			if (get_builtin_func(buff_tk)(buff_tk, env, buff))
 			{
-				printf("not build in\n");
 				check_path = access(buff_tk[0], X_OK);
 				if (check_path == -1)
 				{
 					path = _getenv("PATH", env);
 					buff_tk[0] = path_helper(path, buff_tk[0]);
 				}
-				child_pid = fork();
-				if (child_pid == -1)
+				if (buff_tk[0])
 				{
-					perror(argv[0]);
-				}
-				if (child_pid == 0 && buff_tk[0])
-				{
-					if (execve(buff_tk[0], buff_tk, NULL) == -1)
+					child_pid = fork();
+					if (child_pid == -1)
 					{
-						perror(argv[0]);
-						free(buff_tk);
-						free(buff);
-						_exit(0);
+					perror(argv[0]);
 					}
-				}
-				else
-				{
-					wait(&stat);
-					if (check_path == -1)
-						free(buff_tk[0]);
-					free(buff_tk);
-					free(buff);				
-					buff_tk = NULL;
-					buff = NULL;
-					path = NULL;
+					if (child_pid == 0)
+					{
+						if (execve(buff_tk[0], buff_tk, NULL) == -1)
+						{
+							perror(argv[0]);
+							free(buff_tk);
+							free(buff);
+							break;
+						}
+						
+					}
+					else
+					{
+						wait(&stat);
+						if (check_path == -1)
+							free(buff_tk[0]);
+						free(buff_tk);
+						free(buff);				
+						buff_tk = NULL;
+						buff = NULL;
+						path = NULL;
 
+					}
 				}
 			}
 		}
