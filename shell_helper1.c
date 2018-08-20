@@ -1,33 +1,34 @@
 #include "holberton.h"
+
 /**
- * check_exit - checks if argument is exit.  
- * @argv: pointer to string to check
- * 
+ * _strcmp - compares 2 strings
+ * @s1: string1 to compare
+ * @s2: string2 to compare
+ * Return: -1,0,1 if string1 <, =, > string2
  */
-void  check_exit(char **stored, char *buff)
+
+int _strcmp(char *s1, char *s2)
 {
-	int stat = 0, i = 0;
+        int i = 0, diff = 0;
 
-	if (stored[0][0] == 'e' && stored[0][1] == 'x' &&
-		stored[0][2] == 'i' && stored[0][3] == 't')
-	{
-		if (stored[1])
-		{
-			for (i = 0; stored[1][i]; i++)
-				stat = (stat * 10) + (stored[1][i] - '0');
-		}
-		free(stored);
-		free(buff);
-		fflush(NULL);
-		_exit(stat);
-	}
-
+        while (*(s1 + i) != 0 && *(s2 + i) != 0 && diff == 0)
+        {   
+                diff = (*(s1 + i) - *(s2 + i));
+                i++;
+        }   
+        if (diff != 0)
+        {   
+                return (diff);
+        }   
+        else
+        {   
+                if (*(s1 + i) == 0 && *(s2 + i) == 0)
+                        return (0);
+                else
+                        return (*(s1 + i) - *(s2 + i));
+        }   
 }
-/**
- * _strdup - malloc new memory and duplicates a string
- * @str: pointer to string to duplicate
- * Return: pointer to duplicated string
- */
+
 char *_strdup(char *str)
 {
         char *s; 
