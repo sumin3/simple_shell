@@ -7,7 +7,7 @@
 int main(int argc __attribute__((unused)), char **argv, char **env)
 {
 	pid_t child_pid;
-	int stat;
+	int stat, check_path = 0;
 	char *buff = NULL;
 	char **buff_tk = NULL;
 	size_t br = 0;
@@ -20,6 +20,7 @@ int main(int argc __attribute__((unused)), char **argv, char **env)
 		if (isatty(STDIN_FILENO))
 			write(STDOUT_FILENO, "$> ", 3);
 		read = getline(&buff, &br, stdin);
+		printf("buffer = %s\n", buff);
 		if (read == 0)
 			break;
 		if (read == -1)
@@ -31,8 +32,9 @@ int main(int argc __attribute__((unused)), char **argv, char **env)
 			buff_tk = create_arg_list(buff_tk, buff, " \n");
 			if (get_builtin_func(buff_tk)(buff_tk, env, buff))
 			{
-
-				if (access(buff_tk[0], X_OK) == -1)
+				printf("not build in\n");
+				check_path = access(buff_tk[0], X_OK);
+				if (check_path == -1)
 				{
 					path = _getenv("PATH", env);
 					buff_tk[0] = path_helper(path, buff_tk[0]);
@@ -49,13 +51,14 @@ int main(int argc __attribute__((unused)), char **argv, char **env)
 						perror(argv[0]);
 						free(buff_tk);
 						free(buff);
-						break;
+						_exit(0);
 					}
 				}
 				else
 				{
 					wait(&stat);
-					free(buff_tk[0]);
+					if (check_path == -1)
+						free(buff_tk[0]);
 					free(buff_tk);
 					free(buff);				
 					buff_tk = NULL;
