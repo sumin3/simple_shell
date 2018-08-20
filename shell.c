@@ -12,7 +12,9 @@ int main(int argc __attribute__((unused)), char **argv, char **env)
 	char **stored = NULL;
 	size_t br = 0;
 	ssize_t read;
-
+	char *path = NULL;
+	path = malloc(1024);
+	
 	while (1)
 	{
 		if (isatty(STDIN_FILENO))
@@ -28,7 +30,12 @@ int main(int argc __attribute__((unused)), char **argv, char **env)
 		{
 			stored = create_arg_list(stored, buff, " \n");
 			check_exit(stored, buff);
-
+			
+			if (access(stored[0], X_OK) == -1)
+			{
+				path = _getenv("PATH", env);
+				stored[0] = path_helper(path, stored[0]);
+			}
 			/*if (check_exit(stored[0], stored, buff))
 			  {
 			  free(stored);
@@ -42,7 +49,7 @@ int main(int argc __attribute__((unused)), char **argv, char **env)
 			{
 				perror(argv[0]);
 			}
-			if (child_pid == 0)
+			if (child_pid == 0 && stored[0])
 			{
 				if (execve(stored[0], stored, NULL) == -1)
 				{
@@ -59,7 +66,8 @@ int main(int argc __attribute__((unused)), char **argv, char **env)
 				free(buff);
 				stored = NULL;
 				buff = NULL;
-
+				path = NULL;
+				
 			}
 		}
 	}
