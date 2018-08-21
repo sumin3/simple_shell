@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
-#include <limit.h>
+#include <limits.h>
 
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -20,37 +20,37 @@
 typedef struct builtin
 {
         char *name;
-        int (*func)(char **stored, char **env, char *buff);
+        int (*func)(char **buff_tk, char **env, char *buff);
 } builtin_t;
 
-int (*get_builtin_func(char **s))(char **stored, char **env, char *buff);
+int (*get_builtin_func(char **s))(char **buff_tk, char **env, char *buff);
 
 /**
  * builtin_notfound - dummy function when command is not a builtin
- * @stored: pointer to pointer of commands entered
+ * @buff_tk: pointer to pointer of commands entered
  * @env: pointer to pointer of env
  * @buff: buffer
  * Return: always 2
  */
-int builtin_notfound(char **stored, char **env, char *buff);
+int builtin_notfound(char **buff_tk, char **env, char *buff);
 
 /**
  * is_env - function to check if command entered is env and print env
- * @stored: pointer to pointer of commands entered
+ * @buff_tk: pointer to pointer of commands entered
  * @env: pointer to pointer of env
  * @buff: buffer information
  * Return: 1 if command is env, 0 otherwise
  */
-int builtin_env(char **stored, char **env, char *buff);
+int builtin_env(char **buff_tk, char **env, char *buff);
 
 /**
  * check_exit - checks if argument is exit.
- * @stored: pointer to string to check
+ * @buff_tk: pointer to string to check
  * @env: environment variables
  * @buff: buffer
  * Return: 0 if exit, 1 otherwise
  */
-int builtin_exit(char **stored, char **env, char *buff);
+int builtin_exit(char **buff_tk, char **env, char *buff);
 
 /**
  * _strcmp - compares 2 strings
@@ -85,10 +85,10 @@ char *_strdup(char *str);
 
 /**
  * create_arg_list - takes the input buffer and creates argument list
- * @stored: pointer to where the argument lis will be stored
+ * @buff_tk: pointer to where the argument lis will be stored
  * @buff: buffer to get argument list from
  * Return: pointer to pointer of argument list
  */
-char **create_arg_list(char **stored, char *buff, const char *delim);
+char **create_arg_list(char **buff_tk, char *buff, const char *delim);
 
 #endif
