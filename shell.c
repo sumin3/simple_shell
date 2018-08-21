@@ -1,9 +1,9 @@
 #include "holberton.h"
+
 /**
  * main - main shell function
  * Return: always 0
  */
-
 int main(int argc __attribute__((unused)), char **argv, char **env)
 {
 	pid_t child_pid;
@@ -18,6 +18,7 @@ int main(int argc __attribute__((unused)), char **argv, char **env)
 	
 	while (1)
 	{
+	signal(SIGINT, signalhandler);
 		if (isatty(STDIN_FILENO))
 			write(STDOUT_FILENO, "$> ", 3);
 		input_count++;

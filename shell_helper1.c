@@ -1,5 +1,12 @@
 #include "holberton.h"
-
+/**
+ * signalhandler - handles the ctrl-c key to keep looping
+ * @sig: captured signal
+ */
+void signalhandler(int sig)
+{
+	write(STDOUT_FILENO, "\n\r$> ", 5);
+}
 /**
  * _strcmp - compares 2 strings
  * @s1: string1 to compare
