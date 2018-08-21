@@ -104,7 +104,7 @@ int  builtin_exit(char **buff_tk, char **env, char *buff)
 				}
 			}
 		}
-		stat = (temp << shfiter) >> shifter;
+		stat = (temp << shifter) >> shifter;
 	}
 	free(buff_tk);
 	free(buff);
