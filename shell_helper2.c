@@ -34,7 +34,7 @@ char* num_to_str(size_t n)
  * Return: return the concatenate string if found, 
  * otherwise, return NULL if not found.
  */
-char *path_helper(char *path, char *command)
+char *path_helper(char *path, char *buff_tk)
 {
 	char *path_cp = NULL, *concat_path = NULL;
 	char **path_tk = NULL;
@@ -46,7 +46,7 @@ char *path_helper(char *path, char *command)
 	while (path_tk[i] != NULL)
 	{
 
-		concat_path = _strcat(path_tk[i], "/", command);
+		concat_path = _strcat(path_tk[i], "/", buff_tk);
 		if (access(concat_path, X_OK) == 0)
 		{
 			free(path_cp);
