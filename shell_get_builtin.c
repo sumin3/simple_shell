@@ -54,7 +54,7 @@ int builtin_env(char **buff_tk, char **env, char *buff)
 	while (buff_tk[tokens])
 		tokens++;
 	if (tokens > 1)
-		return (0);
+		return (2);
 
 	while (env && env[row])
 	{
