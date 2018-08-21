@@ -4,7 +4,7 @@
  * @s: name of builtin function to look for
  * Return: integern
  */
-int(*get_builtin_func(char **s))(char **stored, char **env, char *buff)
+int(*get_builtin_func(char **s))(char **buff_tk, char **env, char *buff)
 {
 	builtin_t builtins[] = {
 		{"exit", builtin_exit},
@@ -13,84 +13,103 @@ int(*get_builtin_func(char **s))(char **stored, char **env, char *buff)
 	};
 	int i = 0;
 
-	while(builtins[i].name)
+	while (builtins[i].name)
 	{
 		if (_strcmp(builtins[i].name, s[0]) == 0)
 			return (builtins[i].func);
 		i++;
 	}
-	return(builtins[i].func);
+	return (builtins[i].func);
 }
 
 /**
  * builtin_notfound - dummy function when command is not a builtin
- * @stored: pointer to pointer of commands entered
+ * @buff_tk: pointer to pointer of commands entered
  * @env: pointer to pointer of env
  * @buff: buffer
  * Return: always 2
  */
-int builtin_notfound(char **stored, char **env, char *buff)
+int builtin_notfound(char **buff_tk, char **env, char *buff)
 {
-        (void) stored;
-        (void) env;
-        (void) buff;
+	(void) buff_tk;
+	(void) env;
+	(void) buff;
 
-        return (2);
+	return (2);
 }
 
 
 /**
  * builtin_env - function to print env
- * @stored: pointer to pointer of commands entered
+ * @buff_tk: pointer to pointer of commands entered
  * @env: pointer to pointer of env
+ * @buff: pointer to buffer
  * Return: 1 if command is env, 0 otherwise
  */
-int builtin_env(char **stored, char **env, char *buff)
+int builtin_env(char **buff_tk, char **env, char *buff)
 {
 	int row = 0, col = 0, tokens = 0;
 
-	(void) buff;	
-	while(stored[tokens])
+	(void) buff;
+	while (buff_tk[tokens])
 		tokens++;
 	if (tokens > 1)
-		return(0);
+		return (0);
 
 	while (env && env[row])
-	{   
+	{
 		col = 0;
 		while (env[row][col])
-		{   
+		{
 			col++;
 		}
-		write (STDOUT_FILENO, env[row], col);
-		write (STDOUT_FILENO, "\n", 1);
+		write(STDOUT_FILENO, env[row], col);
+		write(STDOUT_FILENO, "\n", 1);
 		row++;
-	}   
+	}
 	return (1);
 
 }
 
 /**
- * builtin_exit - checks if argument is exit.  
- * @stored: pointer to string to check
- * 
+ * builtin_exit - checks if argument is exit.
+ * @buff_tk: pointer to string to check
+ * @env: pointer to environment values
+ * @buff: pointer to buffer
+ * Return: 0 if bad error message received in exit 1 otherwise
+ *
  */
-int  builtin_exit(char **stored, char **env, char *buff)
+int  builtin_exit(char **buff_tk, char **env, char *buff)
 {
 	int stat = 0, i = 0;
+	unsigned long temp = 0;
+	int shifter = ((sizeof(long) - 1) * 8);
 
 	(void) env;
 
-	if (stored[1])
+	if (buff_tk[1])
 	{
-		for (i = 0; stored[1][i]; i++)
-			stat = (stat * 10) + (stored[1][i] - '0');
+		for (i = 0; buff_tk[1][i]; i++)
+		{
+			if (buff_tk[1][i] < '0' && buff_tk[1][i] > '9')
+			{
+				return (0);
+			}
+			else
+			{
+				temp = (temp * 10) + (buff_tk[1][i] - '0');
+				if (temp > INT_MAX)
+				{
+					return (0);
+				}
+			}
+		}
+		stat = (temp << shfiter) >> shifter;
 	}
-	free(stored);
+	free(buff_tk);
 	free(buff);
 	fflush(NULL);
 	_exit(stat);
-	return (0);
-
+	return (1);
 }
 
