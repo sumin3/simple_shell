@@ -91,7 +91,7 @@ int  builtin_exit(char **buff_tk, char **env, char *buff)
 	{
 		for (i = 0; buff_tk[1][i]; i++)
 		{
-			if (buff_tk[1][i] < '0' && buff_tk[1][i] > '9')
+			if (buff_tk[1][i] < '0' || buff_tk[1][i] > '9')
 			{
 				return (0);
 			}
