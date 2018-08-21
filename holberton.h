@@ -62,7 +62,7 @@ int _strcmp(char *s1, char *s2);
 
 char *_getenv(char *name, char **env);
 char *_strcat(char *dest, char *src, char *str);
-char *path_helper(char *path, char *command);
+char *path_helper(char *path, char *buff_tk);
 int _strlen(char *s);
 char* num_to_str(size_t n);
 /** check_input - checks command for newline character
