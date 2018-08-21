@@ -65,6 +65,8 @@ char *_strcat(char *dest, char *src, char *str);
 char *path_helper(char *path, char *buff_tk);
 int _strlen(char *s);
 char* num_to_str(size_t n);
+int error_message(char *argv, int input_count, char *buff_tk1, char **buff_tk);
+
 /** check_input - checks command for newline character
  * @buff: input string to check for newline
  * Return: 1 if found, 0 otherwise
