@@ -19,9 +19,14 @@
  */
 typedef struct builtin
 {
-        char *name;
-        int (*func)(char **buff_tk, char **env, char *buff);
+	char *name;
+	int (*func)(char **buff_tk, char **env, char *buff);
 } builtin_t;
+/**
+ * signalhandler - handles the ctrl-c to continue looping
+ * @sig: signal passed in
+ */
+void signalhandler(int sig);
 
 int (*get_builtin_func(char **s))(char **buff_tk, char **env, char *buff);
 
@@ -64,14 +69,15 @@ char *_getenv(char *name, char **env);
 char *_strcat(char *dest, char *src, char *str);
 char *path_helper(char *path, char *buff_tk);
 int _strlen(char *s);
-char* num_to_str(size_t n);
+char *num_to_str(size_t n);
 int error_message(char *argv, int input_count, char *buff_tk1, char **buff_tk);
 
-/** check_input - checks command for newline character
+/**
+ * check_input - checks command for newline character
  * @buff: input string to check for newline
  * Return: 1 if found, 0 otherwise
  * Description: checks the input for newline character
- * if newline character is found then remove newline and 
+ * if newline character is found then remove newline and
  * proceed as normal.  otherwise return 0 to stop normal
  * processing because CTRL-D with text is fond so need to
  * handle differently
@@ -89,6 +95,7 @@ char *_strdup(char *str);
  * create_arg_list - takes the input buffer and creates argument list
  * @buff_tk: pointer to where the argument lis will be stored
  * @buff: buffer to get argument list from
+ * @delim: delimiter character(s) to use
  * Return: pointer to pointer of argument list
  */
 char **create_arg_list(char **buff_tk, char *buff, const char *delim);
