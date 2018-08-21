@@ -35,7 +35,7 @@ int builtin_notfound(char **buff_tk, char **env, char *buff)
 	(void) env;
 	(void) buff;
 
-	return (2);
+	return (0);
 }
 
 
