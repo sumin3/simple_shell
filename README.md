@@ -6,8 +6,8 @@ A simple shell program to mimic sh shell.  It allows the user to execute command
 * Run commands in $PATH
 * Run commands from standard input
 
-Built-ins:
-exit [status]
+Built-ins:  
+exit [status]  
 env (print current environment values only)
 
 
