@@ -77,6 +77,8 @@ char **create_arg_list(char **buff_tk, char *buff, const char *delim)
 		count++;
 	}
 	free(buffdup);
+	if (!count)
+		return (NULL);
 	buff_tk = (char **) malloc((count + 1) * sizeof(char *));
 	toprint = strtok(buff, delim);
 	count = 0;
