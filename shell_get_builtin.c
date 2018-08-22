@@ -67,6 +67,7 @@ int builtin_env(char **buff_tk, char **env, char *buff)
 		write(STDOUT_FILENO, "\n", 1);
 		row++;
 	}
+	free(buff_tk);
 	return (1);
 
 }
@@ -106,8 +107,9 @@ int  builtin_exit(char **buff_tk, char **env, char *buff)
 		}
 		stat = (temp << shifter) >> shifter;
 	}
-	free(buff_tk);
+	i = 0;
 	free(buff);
+	free(buff_tk);
 	fflush(NULL);
 	_exit(stat);
 	return (1);

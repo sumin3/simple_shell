@@ -2,23 +2,22 @@
 
 /**
  * main - main shell function
+ * @argc: number of parameters
+ * @argv: arguments list
+ * @env: environment variables
  * Return: always 0
  */
 int main(int argc __attribute__((unused)), char **argv, char **env)
 {
 	pid_t child_pid;
-	size_t input_count = 0;
-	int stat, check_path = 0, check_builtin = 0, error_num = 0;
-	char *buff = NULL, *buff_tk1 = NULL;
-	char **buff_tk = NULL;
-	size_t br = 0;
 	ssize_t read;
-	char *path = NULL;
-	
-	
+	size_t input_count = 0, br = 0;
+	int stat, check_path = 0, check_builtin = 0, error_num = 0;
+	char *path = NULL, *buff = NULL, *buff_tk1 = NULL, **buff_tk = NULL;
+
 	while (1)
 	{
-	signal(SIGINT, signalhandler);
+		signal(SIGINT, signalhandler);
 		if (isatty(STDIN_FILENO))
 			write(STDOUT_FILENO, "$> ", 3);
 		input_count++;
@@ -55,7 +54,6 @@ int main(int argc __attribute__((unused)), char **argv, char **env)
 			error_num = error_message(argv[0], input_count, buff_tk1, buff_tk);
 			if (error_num == 1)
 			{
-
 				free(buff_tk);
 				free(buff_tk1);
 				continue;
@@ -75,7 +73,6 @@ int main(int argc __attribute__((unused)), char **argv, char **env)
 				free(buff);
 				break;
 			}
-			
 		}
 		else
 		{
@@ -86,10 +83,10 @@ int main(int argc __attribute__((unused)), char **argv, char **env)
 				free(buff_tk1);
 			}
 			free(buff_tk);
-			free(buff);				
+			free(buff);
 			buff_tk = NULL;
 			buff = NULL;
-			path = NULL;	
+			path = NULL;
 		}
 	}
 	return (0);

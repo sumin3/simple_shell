@@ -1,6 +1,10 @@
 #include "holberton.h"
 /**
  * error_message - write error message to standard output
+ * @argv: executable name
+ * @input_count: number of times the loop has happened
+ * @buff_tk1: copy of name of command
+ * @buff_tk: argument list
  * Return: return 1 when need to skip rest of code (continue) in main
  * return 0 when do not need to skip
  */
@@ -11,12 +15,9 @@ int error_message(char *argv, int input_count, char *buff_tk1, char **buff_tk)
 	/* error message that all different cases need to write */
 	write(STDOUT_FILENO, argv, _strlen(argv));
 	write(STDOUT_FILENO, ": ", 2);
-	
 	str_count = num_to_str(input_count);
-	
 	write(STDOUT_FILENO, str_count, _strlen(str_count));
 	write(STDOUT_FILENO, ": ", 2);
-	
 	free(str_count);
 	/* for case command not found */
 	if (buff_tk[0] == NULL)
@@ -36,4 +37,4 @@ int error_message(char *argv, int input_count, char *buff_tk1, char **buff_tk)
 		return (1);
 	}
 	return (0);
-} 
+}

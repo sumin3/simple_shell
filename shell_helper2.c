@@ -4,15 +4,15 @@
  * @n: the number that need to convert
  * Return: return the converted string
  */
-char* num_to_str(size_t n)
+char *num_to_str(size_t n)
 {
 	char *str = NULL;
 	int len = 0, n_cp = n, i = 0;
 
-	if(n_cp > 0)
+	if (n_cp > 0)
 	{
 		len++;
-		n_cp = n_cp/10;
+		n_cp = n_cp / 10;
 	}
 	str = malloc(sizeof(char) * (len + 1));
 	if (n / 10)
@@ -27,11 +27,11 @@ char* num_to_str(size_t n)
 	return (str);
 }
 /**
- * path_helper - searches the correct path of command and 
+ * path_helper - searches the correct path of command and
  * concatenates the path with '/' and command
  * @path: the environment variable PATH
- * @command: the first argument of user input
- * Return: return the concatenate string if found, 
+ * @buff_tk: the first argument of user input
+ * Return: return the concatenate string if found,
  * otherwise, return NULL if not found.
  */
 char *path_helper(char *path, char *buff_tk)
@@ -57,7 +57,7 @@ char *path_helper(char *path, char *buff_tk)
 		free(concat_path);
 	}
 	free(path_cp);
-	free(path_tk);	
+	free(path_tk);
 	return (NULL);
 }
 /**
