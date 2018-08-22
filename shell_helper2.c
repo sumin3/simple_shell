@@ -7,23 +7,22 @@
 char *num_to_str(size_t n)
 {
 	char *str = NULL;
-	int len = 0, n_cp = n, i = 0;
-
-	if (n_cp > 0)
+	int len = 1, n_cp = n, i = 0, tmp;
+	if (n_cp / 10 != 0)
 	{
 		len++;
 		n_cp = n_cp / 10;
 	}
 	str = malloc(sizeof(char) * (len + 1));
-	if (n / 10)
+	str[i + len] = '\0';
+	while (n >= 10)
 	{
-		num_to_str(n / 10);
-		str[i] = (n % 10) + '0';
-		i++;
+		tmp = n % 10;
+		str[i + len - 1] = tmp + '0';
+		len--;
+		n = n / 10;
 	}
-	else
-		str[i] = (n % 10) + '0';
-	str[i + 1] = '\0';
+	str[i] = n + '0';
 	return (str);
 }
 /**
