@@ -33,7 +33,7 @@ then you can run the program by issuing the commandn
 ```
 shell
 ```
-##Usage Examples
+## Usage Examples
 The following example shows how to start the shell and issue a ```ls``` command then exit
 ```
 $ ./shell
@@ -54,5 +54,5 @@ $
 ## Testing
 There is a repository 
 ## Authors
-Sumin Yu
+Sumin Yu    
 Peter Wu
