@@ -30,6 +30,8 @@ int main(int argc __attribute__((unused)), char **argv, char **env)
 		if (buff && buff[0] == '\n')
 			continue;
 		buff_tk = create_arg_list(buff_tk, buff, " \n");
+		if (!buff_tk)
+			continue;
 		check_builtin = get_builtin_func(buff_tk)(buff_tk, env, buff);
 		if (check_builtin == 1)
 			continue;
