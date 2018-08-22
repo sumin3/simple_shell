@@ -24,9 +24,9 @@ typedef struct builtin
 } builtin_t;
 /**
  * signalhandler - handles the ctrl-c to continue looping
- * @sig: signal passed in
+ * 
  */
-void signalhandler(int sig);
+void signalhandler();
 
 int (*get_builtin_func(char **s))(char **buff_tk, char **env, char *buff);
 

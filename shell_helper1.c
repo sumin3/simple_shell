@@ -1,9 +1,9 @@
 #include "holberton.h"
 /**
  * signalhandler - handles the ctrl-c key to keep looping
- * @sig: captured signal
+ * 
  */
-void signalhandler(int sig)
+void signalhandler()
 {
 	write(STDOUT_FILENO, "\n\r$> ", 5);
 }
