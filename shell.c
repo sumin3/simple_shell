@@ -81,8 +81,10 @@ int main(int argc __attribute__((unused)), char **argv, char **env)
 		{
 			wait(&stat);
 			if (check_path == -1)
+			{
 				free(buff_tk[0]);
-			free(buff_tk1);
+				free(buff_tk1);
+			}
 			free(buff_tk);
 			free(buff);				
 			buff_tk = NULL;
