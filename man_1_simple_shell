@@ -1,0 +1,46 @@
+.TH SIMPLE_SHELL 1 "22 August 2018" "1.0" "Simple Shell man page"
+.SH NAME
+.B shell
+- a simple command interpreter (shell)
+.SH SYNOPSIS
+.B ./shell
+
+.SH DESCRIPTION
+.B shell
+is the simple command interpreter that execute commands read from a terminal command line.
+.SH INVOCATION
+This shell can run in interactive mode. It reads commands from user input on a tty (stands for teletype - the original terminals used a line printer for output and a keyboard for input). It also can run in non-interactive mode that the shell can not ineract with the user. It runs from a script or similar. 
+.SH Bulitin Search
+.TP
+When locating a command, the shell first check if the command is a builtin command or not by that name. If a builtin command found, the shell calls the corresponding function by that name. After the corresponding function finishes it's job, the shell skips rest of codes and goes to the next iteration of the outer while loop.
+.HP
+If a builtin command is not found, one of two things happen:
+.IP 1.
+If the user input more than one word in command line, the shell writes error message to STDOUT_FILENO. 
+.IP 2.
+If the user input only one word in command line, the shell goes to next
+section, path search.
+.PP
+.SH Bulitin Command
+.B env
+- prints the current environment
+.PP
+.B exit
+- exit the shell (terminate the shell process).
+.IP
+shell can also exit with a specific return value. For example, exit n (where n is a positive number that is less or equal INT_MAX).
+.SH Path Search
+After check the command is not a builtin, the shell calls the access function to check if the command is able to execute or not. If the command is not able to execute, the shell searches the path by using the PATH variable (a series of entries separated by colons). Each entry consists of a directory name. The shell concatenate the directory name and the command. Then, pass the concatencated string to access function to check if the command with path (concatencated string) is able to execute or not.
+.HP
+If path is not found, the shell writes error message to STDOUT_FILENO.
+.SH SEE ALSO
+.I sh(1), bash(1)
+.SH BUGS
+No error message when permission denied.
+
+.SH AUTHOR
+Sumin Yu <suminyu@yahoo.com>
+.PP
+Peter Wu <pete.h.wu@gmail.com>
+
+
