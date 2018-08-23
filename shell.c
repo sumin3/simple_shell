@@ -37,7 +37,7 @@ int main(int argc __attribute__((unused)), char **argv, char **env)
 			continue;
 		if (check_builtin == 0)
 		{
-			error_num = error_message(argv[0], input_count, NULL, buff_tk);
+			error_num = error_message(argv[0], input_count, "", buff_tk);
 			if (error_num == 1)
 			{
 				free(buff_tk);
@@ -48,17 +48,16 @@ int main(int argc __attribute__((unused)), char **argv, char **env)
 		if (check_path == -1)
 		{
 			path = _getenv("PATH", env);
-			buff_tk1 = _strdup(buff_tk[0]);
-			buff_tk[0] = path_helper(path, buff_tk[0]);
-		}
-		if (buff_tk[0] == NULL)
-		{
-			error_num = error_message(argv[0], input_count, buff_tk1, buff_tk);
-			if (error_num == 1)
+			buff_tk1 = path_helper(path, buff_tk[0]);
+			if (buff_tk1 == NULL)
 			{
-				free(buff_tk);
-				free(buff_tk1);
-				continue;
+				error_num = error_message(argv[0], input_count, buff_tk1, buff_tk);
+				if (error_num == 1)
+				{
+					free(buff_tk);
+					free(buff_tk1);
+					continue;
+				}
 			}
 		}
 		child_pid = fork();
@@ -68,7 +67,9 @@ int main(int argc __attribute__((unused)), char **argv, char **env)
 		}
 		if (child_pid == 0)
 		{
-			if (execve(buff_tk[0], buff_tk, NULL) == -1)
+			if (check_path == 0)
+				buff_tk1 = buff_tk[0];
+			if (execve(buff_tk1, buff_tk, NULL) == -1)
 			{
 				perror(argv[0]);
 				free(buff_tk);
@@ -81,9 +82,10 @@ int main(int argc __attribute__((unused)), char **argv, char **env)
 			wait(&stat);
 			if (check_path == -1)
 			{
-				free(buff_tk[0]);
+				/*free(buff_tk[0]); */
 				free(buff_tk1);
 			}
+			
 			free(buff_tk);
 			free(buff);
 			buff_tk = NULL;
