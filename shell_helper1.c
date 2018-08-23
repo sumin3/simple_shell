@@ -1,10 +1,11 @@
 #include "holberton.h"
 /**
  * signalhandler - handles the ctrl-c key to keep looping
- * 
+ * @sig: signal
  */
-void signalhandler()
+void signalhandler(int sig)
 {
+	(void) sig;
 	write(STDOUT_FILENO, "\n\r$> ", 5);
 }
 /**
@@ -46,13 +47,19 @@ char *_strdup(char *str)
 	int i = 0, j;
 
 	if (!str)
-		return (NULL);
+	{
+		_exit(1);
+		/*return (NULL); */
+	}
 	while (*(str + i))
 		i++;
 	i++;
 	s = malloc(sizeof(char) * i);
 	if (s == NULL)
-		return (NULL);
+	{
+		_exit(1);
+		/*return (NULL); */
+	}
 	for (j = 0; j < i; j++)
 		s[j] = str[j];
 	return (s);
@@ -80,6 +87,8 @@ char **create_arg_list(char **buff_tk, char *buff, const char *delim)
 	if (!count)
 		return (NULL);
 	buff_tk = (char **) malloc((count + 1) * sizeof(char *));
+	if (!buff_tk)
+		_exit(1);
 	toprint = strtok(buff, delim);
 	count = 0;
 	while (toprint)

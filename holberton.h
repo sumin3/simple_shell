@@ -11,6 +11,7 @@
 #include <sys/stat.h>
 #include <sys/wait.h>
 #include <fcntl.h>
+
 /**
  * struct builtin - Struct builtin
  *
@@ -24,9 +25,9 @@ typedef struct builtin
 } builtin_t;
 /**
  * signalhandler - handles the ctrl-c to continue looping
- * 
+ * @sig: signal
  */
-void signalhandler();
+void signalhandler(int sig);
 
 int (*get_builtin_func(char **s))(char **buff_tk, char **env, char *buff);
 

@@ -14,6 +14,8 @@ char *num_to_str(size_t n)
 		n_cp = n_cp / 10;
 	}
 	str = malloc(sizeof(char) * (len + 1));
+	if (!str)
+		_exit(1);
 	str[i + len] = '\0';
 	while (n >= 10)
 	{
@@ -106,6 +108,8 @@ char *_strcat(char *dest, char *src, char *str)
 		return (NULL);
 	total_len = _strlen(dest) + _strlen(src) + _strlen(str);
 	result = malloc(sizeof(char) * (total_len + 1));
+	if (!result)
+		_exit(1);
 	for (i = 0; i < total_len; i++)
 	{
 		if (dest[l] != '\0')
