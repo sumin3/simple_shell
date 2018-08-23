@@ -20,9 +20,9 @@ int error_message(char *argv, int input_count, char *buff_tk1, char **buff_tk)
 	write(STDOUT_FILENO, ": ", 2);
 	free(str_count);
 	/* for case command not found */
-	if (buff_tk[0] == NULL)
+	if (buff_tk1 == NULL)
 	{
-		write(STDOUT_FILENO, buff_tk1, _strlen(buff_tk1));
+		write(STDOUT_FILENO, buff_tk[0], _strlen(buff_tk[0]));
 		write(STDOUT_FILENO, ": not found\n", 12);
 		return (1);
 	}
