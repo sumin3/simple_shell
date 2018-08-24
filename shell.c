@@ -44,7 +44,6 @@ int main(int argc __attribute__((unused)), char **argv, char **env)
 			if (buff_tk1 == NULL)
 				continue;
 		}
-		printf("check %d shell buff_tk %s\n", check_path, buff_tk1);
 		exec_command(argv[0], buff_tk, buff_tk1, buff, check_path);
 	}
 	return (0);
