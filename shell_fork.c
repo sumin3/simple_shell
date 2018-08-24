@@ -12,7 +12,8 @@ void exec_command(char *argv, char **buff_tk,
 {
 	pid_t child_pid;
 	int stat;
-
+	
+	(void) buff;
 	child_pid = fork();
 	if (child_pid == -1)
 	{
@@ -26,7 +27,8 @@ void exec_command(char *argv, char **buff_tk,
 		{
 			perror(argv);
 			free(buff_tk);
-			free(buff);
+			/*kill(0, SIGSTOP); 
+			/free(buff);*/
 		}
 	}
 	else

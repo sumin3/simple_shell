@@ -18,7 +18,7 @@ int main(int argc __attribute__((unused)), char **argv, char **env)
 	{
 		signal(SIGINT, signalhandler);
 		if (isatty(STDIN_FILENO))
-			write(STDOUT_FILENO, "$> ", 3);
+			write(STDOUT_FILENO, "> ", 3);
 		input_count++;
 		read = getline(&buff, &br, stdin);
 		if (read == -1)
