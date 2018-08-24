@@ -69,7 +69,7 @@ char *argv, size_t input_count)
 	while (buff_tk[tokens])
 		tokens++;
 	if (tokens > 1)
-		return (2);
+		return (0);
 
 	while (env && env[row])
 	{
