@@ -22,7 +22,11 @@ void exec_command(char *argv, char **buff_tk,
 	if (child_pid == 0)
 	{
 		if (check_path == 0)
+		{
 			buff_tk1 = buff_tk[0];
+			printf("tk change\n\n");
+		}
+		printf("buff %s tk %s\n",buff_tk1, buff_tk[0]);
 		if (execve(buff_tk1, buff_tk, NULL) == -1)
 		{
 			perror(argv);
