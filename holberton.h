@@ -21,42 +21,65 @@
 typedef struct builtin
 {
 	char *name;
-	int (*func)(char **buff_tk, char **env, char *buff);
+	int (*func)(char **buff_tk, char **env, char *buff,
+			char *argv, size_t input_count);
 } builtin_t;
+
+/**
+* exec_command - fork and execute command
+* @argv: program name
+* @buff_tk: tokenized buffer
+* @buff_tk1: command to run
+* @buff: buffer
+* @check_path: value of result of check_path
+* @buff: buffer
+*/
+void exec_command(char *argv, char **buff_tk, char *buff_tk1,
+		char *buff, int check_path);
+
 /**
  * signalhandler - handles the ctrl-c to continue looping
  * @sig: signal
  */
 void signalhandler(int sig);
 
-int (*get_builtin_func(char **s))(char **buff_tk, char **env, char *buff);
+int (*get_builtin_func(char **))(char **, char **, char *, char *, size_t);
 
 /**
  * builtin_notfound - dummy function when command is not a builtin
  * @buff_tk: pointer to pointer of commands entered
  * @env: pointer to pointer of env
  * @buff: buffer
+ * @argv: program name
+ * @input_count: number of commands already processed
  * Return: always 2
  */
-int builtin_notfound(char **buff_tk, char **env, char *buff);
+int builtin_notfound(char **buff_tk, char **env, char *buff,
+		char *argv, size_t input_count);
 
 /**
  * is_env - function to check if command entered is env and print env
  * @buff_tk: pointer to pointer of commands entered
  * @env: pointer to pointer of env
  * @buff: buffer information
+ * @argv: program name
+ * @input_count: number of commands already processed
  * Return: 1 if command is env, 0 otherwise
  */
-int builtin_env(char **buff_tk, char **env, char *buff);
+int builtin_env(char **buff_tk, char **env, char *buff,
+		char *argv, size_t input_count);
 
 /**
  * check_exit - checks if argument is exit.
  * @buff_tk: pointer to string to check
  * @env: environment variables
  * @buff: buffer
+ * @argv: program name
+ * @input_count: number of commands already processed
  * Return: 0 if exit, 1 otherwise
  */
-int builtin_exit(char **buff_tk, char **env, char *buff);
+int builtin_exit(char **buff_tk, char **env, char *buff,
+		char *argv, size_t input_count);
 
 /**
  * _strcmp - compares 2 strings
@@ -68,7 +91,7 @@ int _strcmp(char *s1, char *s2);
 
 char *_getenv(char *name, char **env);
 char *_strcat(char *dest, char *src, char *str);
-char *path_helper(char *path, char *buff_tk);
+char *path_helper(char *path, char **buff_tk, char *argv, size_t input_count);
 int _strlen(char *s);
 char *num_to_str(size_t n);
 int error_message(char *argv, int input_count, char *buff_tk1, char **buff_tk);

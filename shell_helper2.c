@@ -8,6 +8,7 @@ char *num_to_str(size_t n)
 {
 	char *str = NULL;
 	int len = 1, n_cp = n, i = 0, tmp;
+
 	if (n_cp / 10 != 0)
 	{
 		len++;
@@ -32,10 +33,12 @@ char *num_to_str(size_t n)
  * concatenates the path with '/' and command
  * @path: the environment variable PATH
  * @buff_tk: the first argument of user input
+ * @argv: program name
+ * @input_count: number of commands processed
  * Return: return the concatenate string if found,
  * otherwise, return NULL if not found.
  */
-char *path_helper(char *path, char *buff_tk)
+char *path_helper(char *path, char **buff_tk, char *argv, size_t input_count)
 {
 	char *path_cp = NULL, *concat_path = NULL;
 	char **path_tk = NULL;
@@ -43,11 +46,11 @@ char *path_helper(char *path, char *buff_tk)
 
 	path_cp = _strdup(path);
 	path_tk = create_arg_list(path_tk,
-				  path_cp, ":");
+			path_cp, ":");
 	while (path_tk[i] != NULL)
 	{
 
-		concat_path = _strcat(path_tk[i], "/", buff_tk);
+		concat_path = _strcat(path_tk[i], "/", buff_tk[0]);
 		if (access(concat_path, X_OK) == 0)
 		{
 			free(path_cp);
@@ -59,6 +62,8 @@ char *path_helper(char *path, char *buff_tk)
 	}
 	free(path_cp);
 	free(path_tk);
+	error_message(argv, input_count, NULL, buff_tk);
+	free(buff_tk);
 	return (NULL);
 }
 /**
