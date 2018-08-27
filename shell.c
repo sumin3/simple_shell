@@ -11,7 +11,7 @@ int main(int argc __attribute__((unused)), char **argv, char **env)
 {
 	ssize_t read;
 	size_t input_count = 0, br = 0;
-	int check_path = -1;
+	int check_path = -1, check_permi;
 	char *path = NULL, *buff = NULL, *buff_tk1 = NULL, **buff_tk = NULL;
 
 	while (1)
@@ -36,9 +36,13 @@ int main(int argc __attribute__((unused)), char **argv, char **env)
 				argv[0], input_count))
 			continue;
 		if (buff_tk[0][0] == '/' || buff_tk[0][0] == '.')
-			check_path = access(buff_tk[0], F_OK);
+			check_path = access(buff_tk[0], X_OK);
 		if (check_path == -1)
 		{
+			
+			check_permi = permi(buff_tk, argv[0], input_count);
+			if (check_permi == 0)
+				continue;
 			path = _getenv("PATH", env);
 			buff_tk1 = path_helper(path, buff_tk, argv[0], input_count);
 			if (buff_tk1 == NULL)
