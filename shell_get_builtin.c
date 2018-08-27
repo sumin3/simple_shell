@@ -113,7 +113,7 @@ char *argv, size_t input_count)
 		{
 			if (buff_tk[1][i] < '0' || buff_tk[1][i] > '9')
 			{
-				error_num = error_message(argv, input_count, "", buff_tk);
+				error_num = error_message(argv, input_count, 3, buff_tk);
 				if (error_num == 1)
 				{
 					free(buff_tk);
@@ -125,7 +125,7 @@ char *argv, size_t input_count)
 				temp = (temp * 10) + (buff_tk[1][i] - '0');
 				if (temp > INT_MAX)
 				{
-					error_num = error_message(argv, input_count, "", buff_tk);
+					error_num = error_message(argv, input_count, 3, buff_tk);
 					if (error_num == 1)
 					{
 						free(buff_tk);

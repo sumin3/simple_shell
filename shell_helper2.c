@@ -62,7 +62,7 @@ char *path_helper(char *path, char **buff_tk, char *argv, size_t input_count)
 	}
 	free(path_cp);
 	free(path_tk);
-	error_message(argv, input_count, NULL, buff_tk);
+	error_message(argv, input_count, 2, buff_tk);
 	free(buff_tk);
 	return (NULL);
 }
