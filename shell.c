@@ -36,7 +36,7 @@ int main(int argc __attribute__((unused)), char **argv, char **env)
 				argv[0], input_count))
 			continue;
 		if (buff_tk[0][0] == '/' || buff_tk[0][0] == '.')
-			check_path = access(buff_tk[0], X_OK);
+			check_path = access(buff_tk[0], F_OK);
 		if (check_path == -1)
 		{
 			path = _getenv("PATH", env);
