@@ -94,8 +94,8 @@ char *_strcat(char *dest, char *src, char *str);
 char *path_helper(char *path, char **buff_tk, char *argv, size_t input_count);
 int _strlen(char *s);
 char *num_to_str(size_t n);
-int error_message(char *argv, int input_count, char *buff_tk1, char **buff_tk);
-
+int error_message(char *argv, int input_count, int error_num, char **buff_tk);
+int permi(char **buff_tk, char *argv, int input_count);
 /**
  * check_input - checks command for newline character
  * @buff: input string to check for newline
