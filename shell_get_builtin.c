@@ -59,7 +59,7 @@ int builtin_cd(char **buff_tk, list_t **env, char *buff,
         }
         else if(tokens > 1 && buff_tk[1][0] == '-')
         {
-                if(buff_tk[1][0] == '-' && buff_tk[1][1] == '\0')
+                if(buff_tk[1][1] == '\0')
                 {
                         add_str = _getenv("OLDPWD", &temp);
 			if(chdir(add_str) == 0)
@@ -70,6 +70,7 @@ int builtin_cd(char **buff_tk, list_t **env, char *buff,
 				change_pwd(env, "PWD", add_str);
 			}
                 }
+		else if (buff_tk[1] 
         }
         else if(tokens > 1)
         {
@@ -84,7 +85,7 @@ int builtin_cd(char **buff_tk, list_t **env, char *buff,
                 }
                 else if (check_cd == -1)
                 {
-                        error_message(argv, input_count, 4, buff_tk);
+                        error_message(argv, input_count, 8, buff_tk);
                         free(buff_tk);
                         buff_tk = NULL;
                         return (1);
