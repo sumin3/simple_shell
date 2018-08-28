@@ -71,6 +71,13 @@ int error_message(char *argv, int input_count, int error, char **buff_tk)
                 write(STDERR_FILENO, "\n", 1);
                 return (1);
         }
+	else if (error == 9)
+        {
+                write(STDERR_FILENO, ": Illegal option ", 17);
+                write(STDERR_FILENO, buff_tk[1], 2);
+                write(STDERR_FILENO, "\n", 1);
+                return (1);
+        }
 	return (0);
 }
 /**

@@ -70,7 +70,13 @@ int builtin_cd(char **buff_tk, list_t **env, char *buff,
 				change_pwd(env, "PWD", add_str);
 			}
                 }
-		else if (buff_tk[1] 
+		else if (buff_tk[1][1] != '\0')
+		{
+			error_message(argv, input_count, 9, buff_tk);
+                        free(buff_tk);
+                        buff_tk = NULL;
+                        return (1);
+		}
         }
         else if(tokens > 1)
         {
