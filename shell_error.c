@@ -64,6 +64,13 @@ int error_message(char *argv, int input_count, int error, char **buff_tk)
 		write(STDERR_FILENO, ": unsetenv failed\n", 18);
 		return (1);
 	}
+	else if (error == 8)
+        {
+                write(STDERR_FILENO, ": can't cd to ", 14);
+                write(STDERR_FILENO, buff_tk[1], _strlen(buff_tk[1]));
+                write(STDERR_FILENO, "\n", 1);
+                return (1);
+        }
 	return (0);
 }
 /**
