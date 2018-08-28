@@ -6,7 +6,7 @@
 void signalhandler(int sig)
 {
 	(void) sig;
-	write(STDOUT_FILENO, "\n\r$> ", 5);
+	write(STDOUT_FILENO, "\n\r$ ", 4);
 }
 /**
  * _strcmp - compares 2 strings

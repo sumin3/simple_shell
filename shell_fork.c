@@ -6,12 +6,12 @@
 * @buff_tk1: command to run
 * @buff: buffer
 * @check_path: return value of check_path
+* @stat: exit status
 */
 void exec_command(char *argv, char **buff_tk,
-		char *buff_tk1, char *buff, int check_path)
+		char *buff_tk1, char *buff, int check_path, int *stat)
 {
 	pid_t child_pid;
-	int stat;
 
 	(void) buff;
 	child_pid = fork();
@@ -33,7 +33,7 @@ void exec_command(char *argv, char **buff_tk,
 	}
 	else
 	{
-		wait(&stat);
+		wait(stat);
 		if (check_path == -1)
 		{
 			/*free(buff_tk[0]);*/
@@ -41,7 +41,5 @@ void exec_command(char *argv, char **buff_tk,
 		}
 		free(buff_tk);
 		/*free(buff);*/
-		buff_tk = NULL;
-		buff = NULL;
 	}
 }

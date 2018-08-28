@@ -35,10 +35,12 @@ char *num_to_str(size_t n)
  * @buff_tk: the first argument of user input
  * @argv: program name
  * @input_count: number of commands processed
+ * @stat: exit status
  * Return: return the concatenate string if found,
  * otherwise, return NULL if not found.
  */
-char *path_helper(char *path, char **buff_tk, char *argv, size_t input_count)
+char *path_helper(char *path, char **buff_tk, char *argv,
+		size_t input_count, int *stat)
 {
 	char *path_cp = NULL, *concat_path = NULL;
 	char **path_tk = NULL;
@@ -62,6 +64,7 @@ char *path_helper(char *path, char **buff_tk, char *argv, size_t input_count)
 	}
 	free(path_cp);
 	free(path_tk);
+	*stat = 127;
 	error_message(argv, input_count, 2, buff_tk);
 	free(buff_tk);
 	return (NULL);
