@@ -22,7 +22,7 @@ typedef struct builtin
 {
 	char *name;
 	int (*func)(char **buff_tk, char **env, char *buff,
-			char *argv, size_t input_count);
+			char *argv, size_t input_count, int *stat);
 } builtin_t;
 
 /**
@@ -32,10 +32,10 @@ typedef struct builtin
 * @buff_tk1: command to run
 * @buff: buffer
 * @check_path: value of result of check_path
-* @buff: buffer
+* @stat: exit status
 */
 void exec_command(char *argv, char **buff_tk, char *buff_tk1,
-		char *buff, int check_path);
+		char *buff, int check_path, int *stat);
 
 /**
  * signalhandler - handles the ctrl-c to continue looping
@@ -43,7 +43,7 @@ void exec_command(char *argv, char **buff_tk, char *buff_tk1,
  */
 void signalhandler(int sig);
 
-int (*get_builtin_func(char **))(char **, char **, char *, char *, size_t);
+int (*get_builtin(char **))(char **, char **, char *, char *, size_t, int *);
 
 /**
  * builtin_notfound - dummy function when command is not a builtin
@@ -52,10 +52,11 @@ int (*get_builtin_func(char **))(char **, char **, char *, char *, size_t);
  * @buff: buffer
  * @argv: program name
  * @input_count: number of commands already processed
+ * @stat: exit status
  * Return: always 2
  */
 int builtin_notfound(char **buff_tk, char **env, char *buff,
-		char *argv, size_t input_count);
+		char *argv, size_t input_count, int *stat);
 
 /**
  * is_env - function to check if command entered is env and print env
@@ -64,10 +65,11 @@ int builtin_notfound(char **buff_tk, char **env, char *buff,
  * @buff: buffer information
  * @argv: program name
  * @input_count: number of commands already processed
+ * @stat: exit status
  * Return: 1 if command is env, 0 otherwise
  */
 int builtin_env(char **buff_tk, char **env, char *buff,
-		char *argv, size_t input_count);
+		char *argv, size_t input_count, int *stat);
 
 /**
  * check_exit - checks if argument is exit.
@@ -76,10 +78,11 @@ int builtin_env(char **buff_tk, char **env, char *buff,
  * @buff: buffer
  * @argv: program name
  * @input_count: number of commands already processed
+ * @stat: exit status
  * Return: 0 if exit, 1 otherwise
  */
 int builtin_exit(char **buff_tk, char **env, char *buff,
-		char *argv, size_t input_count);
+		char *argv, size_t input_count, int *stat);
 
 /**
  * _strcmp - compares 2 strings
@@ -91,11 +94,12 @@ int _strcmp(char *s1, char *s2);
 
 char *_getenv(char *name, char **env);
 char *_strcat(char *dest, char *src, char *str);
-char *path_helper(char *path, char **buff_tk, char *argv, size_t input_count);
+char *path_helper(char *path, char **buff_tk, char *argv,
+		size_t input_count, int *stat);
 int _strlen(char *s);
 char *num_to_str(size_t n);
 int error_message(char *argv, int input_count, int error_num, char **buff_tk);
-int permi(char **buff_tk, char *argv, int input_count);
+int permi(char **buff_tk, char *argv, int input_count, int *stat);
 /**
  * check_input - checks command for newline character
  * @buff: input string to check for newline

@@ -1,15 +1,17 @@
 #include "holberton.h"
 /**
-* get_builtin_func - function to find builtin function
+* get_builtin - function to find builtin function
+* @buff_tk: tokenized buffer
 * @argv: program name
 * @input_count: number of commands processed
 * @env: environment
 * @buff: buffer value
+* @stat: exit status
 * Return: integer
 *
 */
-int (*get_builtin_func(char **s))(char **buff_tk, char
-		**env, char *buff, char *argv, size_t input_count)
+int (*get_builtin(char **s))(char
+		**buff_tk, char **env, char *buff, char *argv, size_t input_count, int *stat)
 {
 	builtin_t builtins[] = {
 		{"exit", builtin_exit},
@@ -34,16 +36,18 @@ int (*get_builtin_func(char **s))(char **buff_tk, char
 * @buff: buffer
 * @argv: program name
 * @input_count: number of commands processed
+* @stat: exit status
 * Return: always 2
 */
 int builtin_notfound(char **buff_tk, char **env, char *buff,
-char *argv, size_t input_count)
+char *argv, size_t input_count, int *stat)
 {
 	(void) buff_tk;
 	(void) env;
 	(void) buff;
 	(void) argv;
 	(void) input_count;
+	(void) stat;
 
 	return (0);
 }
@@ -56,16 +60,18 @@ char *argv, size_t input_count)
 * @buff: pointer to buffer
 * @argv: program name
 * @input_count: number of commands processed
+* @stat: exit status
 * Return: 1 if command is env, 0 otherwise
 */
 int builtin_env(char **buff_tk, char **env, char *buff,
-char *argv, size_t input_count)
+char *argv, size_t input_count, int *stat)
 {
 	int row = 0, col = 0, tokens = 0;
 
 	(void) buff;
 	(void) argv;
 	(void) input_count;
+	(void) stat;
 	while (buff_tk[tokens])
 		tokens++;
 	if (tokens > 1)
@@ -94,20 +100,20 @@ char *argv, size_t input_count)
 * @buff: pointer to buffer
 * @argv: program name
 * @input_count: number of commands processed
+* @stat: exit status
 * Return: 0 if bad error message received in exit 1 otherwise
 *
 */
 int  builtin_exit(char **buff_tk, char **env, char *buff,
-char *argv, size_t input_count)
+char *argv, size_t input_count, int *stat)
 {
-	int stat = 0, i = 0;
+	int i = 0;
 	unsigned long temp = 0;
 	int error_num;
 	int shifter = ((sizeof(long) - 1) * 8);
 
 	(void) env;
-
-	if (buff_tk[1])
+	if (buff_tk && buff_tk[1])
 	{
 		for (i = 0; buff_tk[1][i]; i++)
 		{
@@ -117,6 +123,7 @@ char *argv, size_t input_count)
 				if (error_num == 1)
 				{
 					free(buff_tk);
+					buff_tk = NULL;
 					return (1);
 				}
 			}
@@ -129,18 +136,20 @@ char *argv, size_t input_count)
 					if (error_num == 1)
 					{
 						free(buff_tk);
+						buff_tk = NULL;
 						return (1);
 					}
 				}
 			}
 		}
-		stat = (temp << shifter) >> shifter;
+		*stat = (temp << shifter) >> shifter;
 	}
-	i = 0;
+	if (*stat > 255)
+		*stat /= 256;
 	free(buff);
 	free(buff_tk);
 	fflush(NULL);
-	_exit(stat);
+	_exit(*stat);
 	return (0);
 }
 
