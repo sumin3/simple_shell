@@ -1,7 +1,6 @@
 #include "holberton.h"
 /**
 * get_builtin - function to find builtin function
-* @buff_tk: tokenized buffer
 * @argv: program name
 * @input_count: number of commands processed
 * @env: environment
@@ -10,12 +9,14 @@
 * Return: integer
 *
 */
-int (*get_builtin(char **s))(char
-		**buff_tk, list_t **env, char *buff, char *argv, size_t input_count, int *stat)
+int (*get_builtin(char **s))(char **buff_tk, list_t
+	**env, char *buff, char *argv, size_t input_count, int *stat)
 {
 	builtin_t builtins[] = {
 		{"exit", builtin_exit},
 		{"env", builtin_env},
+		{"setenv", builtin_setenv},
+		{"unsetenv", builtin_unsetenv},
 		{NULL, builtin_notfound}
 	};
 	int i = 0;
@@ -118,6 +119,7 @@ char *argv, size_t input_count, int *stat)
 			if (buff_tk[1][i] < '0' || buff_tk[1][i] > '9')
 			{
 				error_num = error_message(argv, input_count, 3, buff_tk);
+				*stat = 2;
 				if (error_num == 1)
 				{
 					free(buff_tk);
@@ -130,6 +132,7 @@ char *argv, size_t input_count, int *stat)
 				temp = (temp * 10) + (buff_tk[1][i] - '0');
 				if (temp > INT_MAX)
 				{
+					*stat = 2;
 					error_num = error_message(argv, input_count, 3, buff_tk);
 					if (error_num == 1)
 					{
