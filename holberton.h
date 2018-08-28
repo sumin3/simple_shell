@@ -74,7 +74,9 @@ void free_list(list_t *head);
  * Return: the value
  */
 char *make_key_val(char *tempstr);
-
+int builtin_cd(char **buff_tk, list_t **env, char *buff,
+               char *argv, size_t input_count, int *stat);
+int change_pwd(list_t **env_cp, char *key, char *add);
 /**
  * builtin_unsetenv -  removes environment variable
  * @buff_tk: tokenized buffer
@@ -148,7 +150,7 @@ int builtin_exit(char **buff_tk, list_t **env, char *buff,
  */
 int _strcmp(char *s1, char *s2);
 
-char *_getenv(char *name, char **env);
+char *_getenv(char *name, list_t **env);
 char *_strcat(char *dest, char *src, char *str);
 char *path_helper(char *path, char **buff_tk, char *argv,
 		size_t input_count, int *stat);
