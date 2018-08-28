@@ -38,19 +38,22 @@ int builtin_cd(char **buff_tk, list_t **env, char *buff,
 {
         int check_cd, tokens = 0;
         list_t *temp = *env;
-        char *add_str = NULL;
+        char *add_str = NULL, *pwd = NULL;
 
         (void) buff;
         (void) stat;
 
         while (buff_tk[tokens])
                 tokens++;
+	pwd = _getenv("PWD", &temp);
         /* for case cd */
         if (tokens == 1)
         {
                 add_str = _getenv("HOME", &temp);
+		
                 if ((check_cd = chdir(add_str)) == 0)
                 {
+			change_pwd(env, "OLDPWD", pwd); 
                         change_pwd(env, "PWD", add_str);
                 }
         }
@@ -59,10 +62,13 @@ int builtin_cd(char **buff_tk, list_t **env, char *buff,
                 if(buff_tk[1][0] == '-' && buff_tk[1][1] == '\0')
                 {
                         add_str = _getenv("OLDPWD", &temp);
-                        if(chdir(add_str) == 0)
+			if(chdir(add_str) == 0)
                         {
-                                change_pwd(env, "PWD", add_str);
-                        }
+				change_pwd(env, "OLDPWD", pwd);
+				add_str = NULL;
+				add_str = getcwd(add_str, 0);
+				change_pwd(env, "PWD", add_str);
+			}
                 }
         }
         else if(tokens > 1)
@@ -70,9 +76,10 @@ int builtin_cd(char **buff_tk, list_t **env, char *buff,
                 check_cd = chdir(buff_tk[1]);
                 if (check_cd == 0)
                 {
-                        if ((add_str = malloc(sizeof(char) * 1024)) != NULL)
-                                add_str = getcwd(add_str, 1024);
+			add_str = getcwd(add_str, 0);
+			change_pwd(env, "OLDPWD", pwd); 
                         change_pwd(env, "PWD", add_str);
+			free(add_str);
 
                 }
                 else if (check_cd == -1)
@@ -83,6 +90,7 @@ int builtin_cd(char **buff_tk, list_t **env, char *buff,
                         return (1);
                 }
         }
+	free(buff_tk);
         return (1);
 }
 /**

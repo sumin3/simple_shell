@@ -5,14 +5,39 @@ int change_pwd(list_t **env_cp, char *key, char *add)
         int index = 0;
         char *temp_str = NULL, *temp_val = NULL, *temp_key = NULL;
 
-        while (temp)
+        while (temp && (_strcmp(temp->key, key) != 0))
         {
-                if (_strcmp(temp->key, key))
-                        break;
-                index++;
+		index++;
                 temp = temp->next;
         }
-        if (temp)
+	if (!temp)
+		return (-1);
+	if (temp)
+        {
+                if (delete_node_at_index(env_cp, index) == -1)
+                {
+                        return (-1);
+                }
+        }
+        temp_str = _strcat(key, "=", add);
+        temp_val = make_key_val(temp_str);
+        temp_key = temp_str;
+        temp = add_node(env_cp, temp_key, temp_val);
+        return (1);
+
+}
+/*int change_oldpwd(list_t **env_cp, char *key, char *add)
+{
+	list_t *temp = *env_cp;
+        int index = 0;
+        char *temp_str = NULL, *temp_val = NULL, *temp_key = NULL;
+
+        while (temp && (_strcmp(temp->key, key) == 0))
+        {
+		index++;
+                temp = temp->next;
+        }
+	if (temp)
         {
                 if (delete_node_at_index(&temp, index) == -1)
                 {
@@ -24,8 +49,7 @@ int change_pwd(list_t **env_cp, char *key, char *add)
         temp_key = temp_str;
         temp = add_node(&temp, temp_key, temp_val);
         return (1);
-
-}
+	}*/
 /**
  * builtin_setenv - sets or updates environment variable
  * @buff_tk: tokenized buffer
