@@ -1,6 +1,6 @@
 #include "holberton.h"
 /**
- *   free_list - frees memory for list 
+ *   free_list - frees memory for list
  *    @head: pointer to head of list
  */
 void free_list(list_t *head)
@@ -16,7 +16,8 @@ void free_list(list_t *head)
 /**
  * add_node - adds a node to the beginning of a singly linked list
  * @head: Pointer of pointer to the head of list
- * @str: element to add
+ * @key: key of node
+ * @val: value of node
  * Return: pointer to the linked list
  */
 list_t *add_node(list_t **head,  char *key,  char *val)
@@ -33,12 +34,12 @@ list_t *add_node(list_t **head,  char *key,  char *val)
 	return (*head);
 }
 /**
- * delete_nodeint_at_index - deletes a node at index given
+ * delete_node_at_index - deletes a node at index given
  * @head: pointer to pointer of head of list
  * @index: element to delete
  * Return: 1 if deletion successful -1 if failed
  */
-int delete_nodeint_at_index(list_t **head, unsigned int index)
+int delete_node_at_index(list_t **head, unsigned int index)
 {
 	list_t *prev_node = NULL;
 	list_t *tgt_node = NULL;
@@ -67,24 +68,36 @@ int delete_nodeint_at_index(list_t **head, unsigned int index)
 /**
  * get_env - makes a copy of the environment variablesk
  * @head: pointer to pointer to head of list
- * @enf: pointer to pointer of env to make copy of
+ * @env: pointer to pointer of env to make copy of
  */
 void get_env(list_t **head, char **env)
 {
-	int row = 0, col = 0;
+	int row = 0;
 	char *temp_key,  *temp_val;
 	char *tempstr;
 
 	while (env && env[row])
 	{
-		col = 0;
 		tempstr = _strdup(env[row]);
-		while (tempstr[col] != '=' && tempstr[col])
-			col++;
-		temp_val = &tempstr[col + 1];
-		temp_key = &tempstr[0];
-		tempstr[col] = '\0';
+		temp_val = make_key_val(tempstr);
+		temp_key = tempstr;
 		*head = add_node(head, temp_key, temp_val);
 		row++;
 	}
+}
+/**
+ * make_key_val - takes a string and split it into key value pair
+ * @tempstr: string to split
+ * Return: the value
+ */
+char *make_key_val(char *tempstr)
+{
+	int col = 0;
+	char *temp_val;
+
+	while (tempstr[col] != '=' && tempstr[col])
+		col++;
+	temp_val = &tempstr[col + 1];
+	tempstr[col] = '\0';
+	return (temp_val);
 }
