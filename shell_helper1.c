@@ -21,7 +21,7 @@ int _strcmp(char *s1, char *s2)
 
 	while (*(s1 + i) != 0 && *(s2 + i) != 0 && diff == 0)
 	{
-	diff = (*(s1 + i) - *(s2 + i));
+		diff = (*(s1 + i) - *(s2 + i));
 		i++;
 	}
 	if (diff != 0)
@@ -42,14 +42,14 @@ int _strcmp(char *s1, char *s2)
  * Return: pointer to new string
  */
 char *_strdup(char *str)
-{
+{ 
 	char *s;
 	int i = 0, j;
 
 	if (!str)
 	{
 		_exit(1);
-		/*return (NULL); */
+		//return (NULL); 
 	}
 	while (*(str + i))
 		i++;
@@ -58,11 +58,13 @@ char *_strdup(char *str)
 	if (s == NULL)
 	{
 		_exit(1);
-		/*return (NULL); */
+		//return (NULL); 
 	}
 	for (j = 0; j < i; j++)
 		s[j] = str[j];
 	return (s);
+
+
 }
 /**
  * create_arg_list - takes the input buffer and creates argument list

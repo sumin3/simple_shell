@@ -11,7 +11,7 @@
 *
 */
 int (*get_builtin(char **s))(char
-		**buff_tk, char **env, char *buff, char *argv, size_t input_count, int *stat)
+		**buff_tk, list_t **env, char *buff, char *argv, size_t input_count, int *stat)
 {
 	builtin_t builtins[] = {
 		{"exit", builtin_exit},
@@ -39,7 +39,7 @@ int (*get_builtin(char **s))(char
 * @stat: exit status
 * Return: always 2
 */
-int builtin_notfound(char **buff_tk, char **env, char *buff,
+int builtin_notfound(char **buff_tk, list_t **env, char *buff,
 char *argv, size_t input_count, int *stat)
 {
 	(void) buff_tk;
@@ -63,10 +63,12 @@ char *argv, size_t input_count, int *stat)
 * @stat: exit status
 * Return: 1 if command is env, 0 otherwise
 */
-int builtin_env(char **buff_tk, char **env, char *buff,
+int builtin_env(char **buff_tk, list_t **env, char *buff,
 char *argv, size_t input_count, int *stat)
 {
-	int row = 0, col = 0, tokens = 0;
+	int   tokens = 0, len = 0;
+	list_t *temp = *env;
+	char *tempstr;
 
 	(void) buff;
 	(void) argv;
@@ -76,23 +78,20 @@ char *argv, size_t input_count, int *stat)
 		tokens++;
 	if (tokens > 1)
 		return (0);
-
-	while (env && env[row])
+	while (temp)
 	{
-		col = 0;
-		while (env[row][col])
-		{
-			col++;
-		}
-		write(STDOUT_FILENO, env[row], col);
+		tempstr = _strcat(temp->key, "=", temp->val);
+		len = _strlen(tempstr);
+		write(STDOUT_FILENO, tempstr, len);
 		write(STDOUT_FILENO, "\n", 1);
-		row++;
+		free(tempstr);
+		temp = temp->next;
 	}
+
 	free(buff_tk);
 	return (1);
 
 }
-
 /**
 * builtin_exit - checks if argument is exit.
 * @buff_tk: pointer to string to check
@@ -104,7 +103,7 @@ char *argv, size_t input_count, int *stat)
 * Return: 0 if bad error message received in exit 1 otherwise
 *
 */
-int  builtin_exit(char **buff_tk, char **env, char *buff,
+int  builtin_exit(char **buff_tk, list_t **env, char *buff,
 char *argv, size_t input_count, int *stat)
 {
 	int i = 0;
@@ -112,7 +111,6 @@ char *argv, size_t input_count, int *stat)
 	int error_num;
 	int shifter = ((sizeof(long) - 1) * 8);
 
-	(void) env;
 	if (buff_tk && buff_tk[1])
 	{
 		for (i = 0; buff_tk[1][i]; i++)
@@ -148,6 +146,7 @@ char *argv, size_t input_count, int *stat)
 		*stat /= 256;
 	free(buff);
 	free(buff_tk);
+	free_list(*env);
 	fflush(NULL);
 	_exit(*stat);
 	return (0);

@@ -13,6 +13,19 @@
 #include <fcntl.h>
 
 /**
+ * struct list_s - Singly linked list Environment Struct
+ * @key: key value of environment variable
+ * @val: value of environment variable
+ * @next: Next node
+ */
+typedef struct list_s
+{
+	char *key;
+	char *val;
+	struct list_s *next;
+} list_t;
+
+/**
  * struct builtin - Struct builtin
  *
  * @name: Name of builtin
@@ -21,9 +34,10 @@
 typedef struct builtin
 {
 	char *name;
-	int (*func)(char **buff_tk, char **env, char *buff,
+	int (*func)(char **buff_tk, list_t **env, char *buff,
 			char *argv, size_t input_count, int *stat);
 } builtin_t;
+
 
 /**
 * exec_command - fork and execute command
@@ -43,7 +57,16 @@ void exec_command(char *argv, char **buff_tk, char *buff_tk1,
  */
 void signalhandler(int sig);
 
-int (*get_builtin(char **))(char **, char **, char *, char *, size_t, int *);
+int (*get_builtin(char **))(char **, list_t **, char *, char *, size_t, int *);
+
+list_t *add_node(list_t **head,  char *key,  char *val);
+int delete_nodeint_at_index(list_t **head, unsigned int index);
+void get_env(list_t **head, char **env);
+/**
+ *   free_list - frees memory for list 
+ *    @head: pointer to head of list
+ */
+void free_list(list_t *head);
 
 /**
  * builtin_notfound - dummy function when command is not a builtin
@@ -55,7 +78,7 @@ int (*get_builtin(char **))(char **, char **, char *, char *, size_t, int *);
  * @stat: exit status
  * Return: always 2
  */
-int builtin_notfound(char **buff_tk, char **env, char *buff,
+int builtin_notfound(char **buff_tk, list_t **env, char *buff,
 		char *argv, size_t input_count, int *stat);
 
 /**
@@ -68,7 +91,7 @@ int builtin_notfound(char **buff_tk, char **env, char *buff,
  * @stat: exit status
  * Return: 1 if command is env, 0 otherwise
  */
-int builtin_env(char **buff_tk, char **env, char *buff,
+int builtin_env(char **buff_tk, list_t **env, char *buff,
 		char *argv, size_t input_count, int *stat);
 
 /**
@@ -81,7 +104,7 @@ int builtin_env(char **buff_tk, char **env, char *buff,
  * @stat: exit status
  * Return: 0 if exit, 1 otherwise
  */
-int builtin_exit(char **buff_tk, char **env, char *buff,
+int builtin_exit(char **buff_tk, list_t **env, char *buff,
 		char *argv, size_t input_count, int *stat);
 
 /**
