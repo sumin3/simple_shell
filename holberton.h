@@ -60,13 +60,46 @@ void signalhandler(int sig);
 int (*get_builtin(char **))(char **, list_t **, char *, char *, size_t, int *);
 
 list_t *add_node(list_t **head,  char *key,  char *val);
-int delete_nodeint_at_index(list_t **head, unsigned int index);
+int delete_node_at_index(list_t **head, unsigned int index);
 void get_env(list_t **head, char **env);
 /**
  *   free_list - frees memory for list 
  *    @head: pointer to head of list
  */
 void free_list(list_t *head);
+
+/**
+ * make_key_val - takes a string and split it into key value pair
+ * @tempstr: string to split
+ * Return: the value
+ */
+char *make_key_val(char *tempstr);
+
+/**
+ * builtin_unsetenv -  removes environment variable
+ * @buff_tk: tokenized buffer
+ * @env: linked list of environment variable
+ * @buff: input buffer
+ * @argv: program name
+ * @input_count: number of commands executed
+ * @stat: exit code
+ * Return: 0 if successful 1 otherwise
+ */
+int builtin_unsetenv(char **buff_tk, list_t **env, char *buff,
+                char *argv, size_t input_count, int *stat);
+
+/**
+ * builtin_setenv - sets or updates environment variable
+ * @buff_tk: tokenized buffer
+ * @env: linked list of environment variable
+ * @buff: input buffer
+ * @argv: program name
+ * @input_count: number of commands executed
+ * @stat: exit code
+ * Return: 0 if successful 1 otherwise
+ */
+int builtin_setenv(char **buff_tk, list_t **env, char *buff,
+                char *argv, size_t input_count, int *stat);
 
 /**
  * builtin_notfound - dummy function when command is not a builtin
