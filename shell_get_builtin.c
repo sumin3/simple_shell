@@ -17,6 +17,7 @@ int (*get_builtin(char **s))(char **buff_tk, list_t
 		{"env", builtin_env},
 		{"setenv", builtin_setenv},
 		{"unsetenv", builtin_unsetenv},
+		{"cd", builtin_cd},
 		{NULL, builtin_notfound}
 	};
 	int i = 0;
@@ -29,7 +30,61 @@ int (*get_builtin(char **s))(char **buff_tk, list_t
 	}
 	return (builtins[i].func);
 }
+/**
+ * builtin_cd - change current working directory
+ */
+int builtin_cd(char **buff_tk, list_t **env, char *buff,
+               char *argv, size_t input_count, int *stat)
+{
+        int check_cd, tokens = 0;
+        list_t *temp = *env;
+        char *add_str = NULL;
 
+        (void) buff;
+        (void) stat;
+
+        while (buff_tk[tokens])
+                tokens++;
+        /* for case cd */
+        if (tokens == 1)
+        {
+                add_str = _getenv("HOME", &temp);
+                if ((check_cd = chdir(add_str)) == 0)
+                {
+                        change_pwd(env, "PWD", add_str);
+                }
+        }
+        else if(tokens > 1 && buff_tk[1][0] == '-')
+        {
+                if(buff_tk[1][0] == '-' && buff_tk[1][1] == '\0')
+                {
+                        add_str = _getenv("OLDPWD", &temp);
+                        if(chdir(add_str) == 0)
+                        {
+                                change_pwd(env, "PWD", add_str);
+                        }
+                }
+        }
+        else if(tokens > 1)
+        {
+                check_cd = chdir(buff_tk[1]);
+                if (check_cd == 0)
+                {
+                        if ((add_str = malloc(sizeof(char) * 1024)) != NULL)
+                                add_str = getcwd(add_str, 1024);
+                        change_pwd(env, "PWD", add_str);
+
+                }
+                else if (check_cd == -1)
+                {
+                        error_message(argv, input_count, 4, buff_tk);
+                        free(buff_tk);
+                        buff_tk = NULL;
+                        return (1);
+                }
+        }
+        return (1);
+}
 /**
 * builtin_notfound - dummy function when command is not a builtin
 * @buff_tk: pointer to pointer of commands entered
