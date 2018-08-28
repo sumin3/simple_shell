@@ -9,11 +9,13 @@
  */
 int main(int argc __attribute__((unused)), char **argv, char **env)
 {
+	list_t *env_cp = NULL;
 	ssize_t read;
 	size_t input_count = 0, br = 0;
 	int check_path = -1, check_permi, stat = 0;
 	char *path = NULL, *buff = NULL, *buff_tk1 = NULL, **buff_tk = NULL;
 
+	get_env(&env_cp, env);
 	while (1)
 	{
 		check_path = -1;
@@ -25,6 +27,7 @@ int main(int argc __attribute__((unused)), char **argv, char **env)
 		if (read == -1)
 		{
 			free(buff);
+			free_list(env_cp);
 			stat > 255 ? stat /= 256 : stat;
 			_exit(stat);
 		}
@@ -33,7 +36,7 @@ int main(int argc __attribute__((unused)), char **argv, char **env)
 		buff_tk = create_arg_list(buff_tk, buff, " \t\n");
 		if (!buff_tk)
 			continue;
-		if (get_builtin(buff_tk)(buff_tk, env, buff,
+		if (get_builtin(buff_tk)(buff_tk, &env_cp, buff,
 				argv[0], input_count, &stat))
 			continue;
 		if (buff_tk[0][0] == '/' || buff_tk[0][0] == '.')
