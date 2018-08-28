@@ -75,6 +75,8 @@ int builtin_cd(char **buff_tk, list_t **env, char *buff,
 				add_str = NULL;
 				add_str = getcwd(add_str, 0);
 				change_pwd(env, "PWD", add_str);
+				write(STDOUT_FILENO, add_str, _strlen(add_str));
+				write(STDOUT_FILENO, "\n", 1);
 				free(add_str);
 			}
 		}
