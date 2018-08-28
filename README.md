@@ -49,9 +49,10 @@ $ echo "/bin/ls" | ./shell
 README.md	shell		shell_error.c		shell_helper1.c
 holberton.h	shell.c		shell_get_builtin.c	shell_helper2.c
 $
+```
 ## Output
 click this [link to Google doc](https://docs.google.com/document/d/1H4Syxiicin9logZRJHHHy5N5iDEbLYjIQmtcaPzVo-g/edit) for expected output.
-```
+
 ## Testing
 There is a separate repository for the test suite at <place holder> Follow the instructions there to run a more comprehensive test on the simple shell program. 
 ## Authors
