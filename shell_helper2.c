@@ -76,16 +76,16 @@ char *path_helper(char *path, char **buff_tk, char *argv,
  * Return: returns the associated value to the string,
  * or NULL if that environment variable does not exist.
  */
-char *_getenv(char *name, char **env)
+char *_getenv(char *name, list_t **env)
 {
-	int match = 0;
-	int i = 0, j = 0;
+	int i = 0, match = 0;
+	list_t *temp = *env;
 
-	while (env[i] != NULL)
+	while (temp)
 	{
-		for (j = 0; j < _strlen(name); j++)
+		for (i = 0; name[i]; i++)
 		{
-			if (env[i][j] == name[j])
+			if (temp->key[i] == name[i])
 				match = 1;
 			else
 			{
@@ -94,8 +94,8 @@ char *_getenv(char *name, char **env)
 			}
 		}
 		if (match == 1)
-			return (&env[i][j + 1]);
-		i++;
+			return (temp->val);
+		temp = temp->next;
 	}
 	return (NULL);
 }
