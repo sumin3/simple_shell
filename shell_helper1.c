@@ -49,7 +49,6 @@ char *_strdup(char *str)
 	if (!str)
 	{
 		_exit(1);
-		//return (NULL); 
 	}
 	while (*(str + i))
 		i++;
@@ -58,7 +57,6 @@ char *_strdup(char *str)
 	if (s == NULL)
 	{
 		_exit(1);
-		//return (NULL); 
 	}
 	for (j = 0; j < i; j++)
 		s[j] = str[j];
