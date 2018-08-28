@@ -42,7 +42,7 @@ int _strcmp(char *s1, char *s2)
  * Return: pointer to new string
  */
 char *_strdup(char *str)
-{ 
+{
 	char *s;
 	int i = 0, j;
 

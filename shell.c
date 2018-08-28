@@ -36,7 +36,7 @@ int main(int argc __attribute__((unused)), char **argv, char **env)
 		buff_tk = create_arg_list(buff_tk, buff, " \t\n");
 		if (!buff_tk)
 			continue;
-		if (get_builtin(buff_tk)(buff_tk, &env_cp, buff, argv[0], 
+		if (get_builtin(buff_tk)(buff_tk, &env_cp, buff, argv[0],
 					 input_count, &stat))
 			continue;
 		if (buff_tk[0][0] == '/' || buff_tk[0][0] == '.')

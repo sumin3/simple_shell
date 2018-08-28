@@ -34,11 +34,6 @@ int error_message(char *argv, int input_count, int error, char **buff_tk)
 	/* for case exit with a number that is greater than INT_MAX */
 	else if (error == 3)
 	{
-		/*
-		write(STDERR_FILENO, ": Illegal number: ", 18);
-		write(STDERR_FILENO, buff_tk[1], _strlen(buff_tk[1]));
-		write(STDERR_FILENO, "\n", 1);
-		*/
 		tempstr = _strcat(": Illegal number: ", buff_tk[1], "\n");
 		write(STDERR_FILENO, tempstr, _strlen(tempstr));
 		free(tempstr);
@@ -46,17 +41,17 @@ int error_message(char *argv, int input_count, int error, char **buff_tk)
 	}
 	else if (error == 4)
 	{
-		write(STDERR_FILENO, ": Invalid Argument for setenv\n",30);
+		write(STDERR_FILENO, ": Invalid Argument for setenv\n", 30);
 		return (1);
 	}
 	else if (error == 5)
 	{
-		write(STDERR_FILENO, ": Invalid Argument for unsetenv\n",32);
+		write(STDERR_FILENO, ": Invalid Argument for unsetenv\n", 32);
 		return (1);
 	}
 	else if (error == 6)
 	{
-		write(STDERR_FILENO, ": Environment Variable not found\n",33);
+		write(STDERR_FILENO, ": Environment Variable not found\n", 33);
 		return (1);
 	}
 	else if (error == 7)
@@ -65,19 +60,19 @@ int error_message(char *argv, int input_count, int error, char **buff_tk)
 		return (1);
 	}
 	else if (error == 8)
-        {
-                write(STDERR_FILENO, ": can't cd to ", 14);
-                write(STDERR_FILENO, buff_tk[1], _strlen(buff_tk[1]));
-                write(STDERR_FILENO, "\n", 1);
-                return (1);
-        }
+	{
+		write(STDERR_FILENO, ": can't cd to ", 14);
+		write(STDERR_FILENO, buff_tk[1], _strlen(buff_tk[1]));
+		write(STDERR_FILENO, "\n", 1);
+		return (1);
+	}
 	else if (error == 9)
-        {
-                write(STDERR_FILENO, ": Illegal option ", 17);
-                write(STDERR_FILENO, buff_tk[1], 2);
-                write(STDERR_FILENO, "\n", 1);
-                return (1);
-        }
+	{
+		write(STDERR_FILENO, ": Illegal option ", 17);
+		write(STDERR_FILENO, buff_tk[1], 2);
+		write(STDERR_FILENO, "\n", 1);
+		return (1);
+	}
 	return (0);
 }
 /**
