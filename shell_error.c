@@ -3,7 +3,7 @@
  * error_message - write error message to standard output
  * @argv: executable name
  * @input_count: number of times the loop has happened
- * @buff_tk1: copy of name of command
+ * @error: error number
  * @buff_tk: argument list
  * Return: return 1 when need to skip rest of code (continue) in main
  * return 0 when do not need to skip
@@ -46,13 +46,16 @@ int error_message(char *argv, int input_count, int error, char **buff_tk)
  * @buff_tk: pointer to where the argument list will be stored
  * @argv: program name
  * @input_count: number of commands processed
+ * @stat: exit status
  * Return: return 0 if file exist, otherwise, return -1
  */
-int permi(char **buff_tk, char *argv, int input_count)  
+int permi(char **buff_tk, char *argv, int input_count, int *stat)
 {
 	if (access(buff_tk[0], F_OK) == 0)
 	{
+		*stat = 126;
 		error_message(argv, input_count, 1, buff_tk);
+		free(buff_tk);
 		return (0);
 	}
 	else
