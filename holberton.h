@@ -63,7 +63,7 @@ list_t *add_node(list_t **head,  char *key,  char *val);
 int delete_node_at_index(list_t **head, unsigned int index);
 void get_env(list_t **head, char **env);
 /**
- *   free_list - frees memory for list 
+ *   free_list - frees memory for list
  *    @head: pointer to head of list
  */
 void free_list(list_t *head);
@@ -75,7 +75,7 @@ void free_list(list_t *head);
  */
 char *make_key_val(char *tempstr);
 int builtin_cd(char **buff_tk, list_t **env, char *buff,
-               char *argv, size_t input_count, int *stat);
+		char *argv, size_t input_count, int *stat);
 int change_pwd(list_t **env_cp, char *key, char *add);
 /**
  * builtin_unsetenv -  removes environment variable
@@ -88,7 +88,7 @@ int change_pwd(list_t **env_cp, char *key, char *add);
  * Return: 0 if successful 1 otherwise
  */
 int builtin_unsetenv(char **buff_tk, list_t **env, char *buff,
-                char *argv, size_t input_count, int *stat);
+		char *argv, size_t input_count, int *stat);
 
 /**
  * builtin_setenv - sets or updates environment variable
@@ -101,7 +101,7 @@ int builtin_unsetenv(char **buff_tk, list_t **env, char *buff,
  * Return: 0 if successful 1 otherwise
  */
 int builtin_setenv(char **buff_tk, list_t **env, char *buff,
-                char *argv, size_t input_count, int *stat);
+		char *argv, size_t input_count, int *stat);
 
 /**
  * builtin_notfound - dummy function when command is not a builtin
