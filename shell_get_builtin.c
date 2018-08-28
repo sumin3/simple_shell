@@ -48,7 +48,6 @@ int builtin_cd(char **buff_tk, list_t **env, char *buff,
 	char *add_str = NULL, *pwd = NULL;
 
 	(void) buff;
-	(void) stat;
 
 	while (buff_tk[tokens])
 		tokens++;
@@ -85,6 +84,7 @@ int builtin_cd(char **buff_tk, list_t **env, char *buff,
 			error_message(argv, input_count, 9, buff_tk);
 			free(buff_tk);
 			buff_tk = NULL;
+			*stat = 2;
 			return (1);
 		}
 	}
@@ -102,6 +102,7 @@ int builtin_cd(char **buff_tk, list_t **env, char *buff,
 		else if (check_cd == -1)
 		{
 			error_message(argv, input_count, 8, buff_tk);
+			*stat = 2;
 			free(buff_tk);
 			buff_tk = NULL;
 			return (1);
