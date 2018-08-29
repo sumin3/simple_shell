@@ -122,6 +122,7 @@ int builtin_unsetenv(char **buff_tk, list_t **env, char *buff,
 	}
 	else
 	{
+		*stat = 0;
 		while (temp && _strcmp(buff_tk[1], temp->key))
 		{
 			index++;
@@ -143,7 +144,6 @@ int builtin_unsetenv(char **buff_tk, list_t **env, char *buff,
 				      ": Environment Variable not found\n",
 				      buff_tk);
 		}
-		*stat = 0;
 	}
 	free(buff_tk);
 	return (1);
