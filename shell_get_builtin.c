@@ -77,7 +77,15 @@ int builtin_cd(char **buff_tk, list_t **env, char *buff,
 		if (buff_tk[1][1] == '\0')
 		{
 			add_str = _getenv("OLDPWD", &temp);
-			if (chdir(add_str) == 0)
+			if (add_str == NULL)
+			{
+				add_str = getcwd(add_str, 0);
+				change_pwd(env, "OLDPWD", add_str);
+				write(STDOUT_FILENO, add_str, _strlen(add_str));
+				write(STDOUT_FILENO, "\n", 1);
+				free(add_str);
+			}
+			else if (chdir(add_str) == 0)
 			{
 				change_pwd(env, "OLDPWD", pwd);
 				add_str = NULL;
