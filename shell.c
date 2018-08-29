@@ -39,8 +39,7 @@ int main(int argc __attribute__((unused)), char **argv, char **env)
 		if (get_builtin(buff_tk)(buff_tk, &env_cp, buff, argv[0],
 					 input_count, &stat))
 			continue;
-		if (buff_tk[0][0] == '/' || (buff_tk[0][0] == '.' &&
-					     buff_tk[0][1] == '/'))
+		if (buff_tk[0][0] == '/' || (buff_tk[0][0] == '.')
 			check_path = access(buff_tk[0], X_OK);
 		if (check_path == -1)
 		{
