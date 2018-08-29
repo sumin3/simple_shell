@@ -105,7 +105,7 @@ int builtin_unsetenv(char **buff_tk, list_t **env, char *buff,
 		tokens++;
 	if (tokens < 2)
 	{
-		*stat = 1;
+		*stat = 0;
 		error_message(argv, input_count,
 			      ": Invalid Argument for unsetenv\n", buff_tk);
 	}
