@@ -54,8 +54,8 @@ holberton.h	shell.c		shell_get_builtin.c	shell_helper2.c
 $
 `
 ## Output
-Short list of command and expected output
-click [here](https://docs.google.com/document/d/1H4Syxiicin9logZRJHHHy5N5iDEbLYjIQmtcaPzVo-g/edit) for a more comprehensive list.
+Short list of command and expected output  
+click [here](https://docs.google.com/document/d/1H4Syxiicin9logZRJHHHy5N5iDEbLYjIQmtcaPzVo-g/edit) for a more comprehensive list.  
 Command | Expected output 
 ---|---
 ls | lists files in current directory
