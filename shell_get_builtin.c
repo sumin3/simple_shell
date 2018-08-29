@@ -53,7 +53,8 @@ int builtin_cd(char **buff_tk, list_t **env, char *buff,
 		tokens++;
 	pwd = _getenv("PWD", &temp);
 	/* for case cd */
-	if (tokens == 1)
+	if (tokens == 1 || (tokens == 2 &&
+				(buff_tk[1][0] == '~' || buff_tk[1][0] == '$')))
 	{
 		add_str = _getenv("HOME", &temp);
 		check_cd = chdir(add_str);
