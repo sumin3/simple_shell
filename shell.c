@@ -15,9 +15,9 @@ int main(int argc __attribute__((unused)), char **argv, char **env)
 	int check_path = -1, check_permi, stat = 0;
 	char *path = NULL, *buff = NULL, *buff_tk1 = NULL, **buff_tk = NULL;
 
+	get_env(&env_cp, env);
 	while (1)
 	{
-		get_env(&env_cp, env);
 		check_path = -1;
 		signal(SIGINT, signalhandler);
 		if (isatty(STDIN_FILENO))
@@ -53,8 +53,6 @@ int main(int argc __attribute__((unused)), char **argv, char **env)
 				continue;
 		}
 		exec_command(argv[0], buff_tk, buff_tk1, buff, check_path, &stat);
-		free_list(env_cp);
-		env_cp = NULL;
 	}
 	return (0);
 }
