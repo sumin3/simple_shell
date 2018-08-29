@@ -54,7 +54,20 @@ holberton.h	shell.c		shell_get_builtin.c	shell_helper2.c
 $
 `
 ## Output
-click this [link to Google doc](https://docs.google.com/document/d/1H4Syxiicin9logZRJHHHy5N5iDEbLYjIQmtcaPzVo-g/edit) for expected output.
+Short list of command and expected output
+click [here](https://docs.google.com/document/d/1H4Syxiicin9logZRJHHHy5N5iDEbLYjIQmtcaPzVo-g/edit) for a more comprehensive list.
+Command | Expected output
+---|---
+ls | lists files in current directory
+/bin/ls | lists files in current directory
+env | print out of environment values
+ls   -l | lists files in long format
+cd | changes directory to home direcotry
+cd - | displays previous directory and change into tht directory
+cd / | changes directory to root directory
+111 | command not found
+
+
 
 ## Testing
 There is a separate repository for the test suite [Here](https://github.com/petehwu/shellgame) Follow the instructions there to run a more comprehensive test on the simple shell program.
