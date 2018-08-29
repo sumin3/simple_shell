@@ -48,7 +48,7 @@ If path is not found, the shell writes error message to STDERR_FILENO.
 .SH SEE ALSO
 .I sh(1), bash(1)
 .SH BUGS
-No error message when permission denied.
+No known bugs.
 
 .SH AUTHOR
 Sumin Yu <suminyu@yahoo.com>
