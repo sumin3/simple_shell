@@ -46,10 +46,17 @@ char *path_helper(char *path, char **buff_tk, char *argv,
 	char **path_tk = NULL;
 	int i = 0;
 
-	path_cp = _strdup(path);
-	path_tk = create_arg_list(path_tk,
+	if (path)
+	{
+		path_cp = _strdup(path);
+		path_tk = create_arg_list(path_tk,
 			path_cp, ":");
-	while (path_tk[i] != NULL)
+	}
+	else 
+	{
+		path_tk = NULL;
+	}
+	while (path_tk && path_tk[i] != NULL)
 	{
 
 		concat_path = _strcat(path_tk[i], "/", buff_tk[0]);
