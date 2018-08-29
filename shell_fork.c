@@ -39,10 +39,7 @@ void exec_command(char *argv, char **buff_tk,
 			/*free(buff_tk[0]);*/
 			free(buff_tk1);
 			buff_tk1 = NULL;
-<<<<<<< HEAD
-=======
 
->>>>>>> c4e2bcc0839f181e6ffb6ece42ad59ffa567e1ec
 		}
 		free(buff_tk);
 		buff_tk = NULL;
