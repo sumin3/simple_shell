@@ -52,7 +52,7 @@ char *path_helper(char *path, char **buff_tk, char *argv,
 		path_tk = create_arg_list(path_tk,
 			path_cp, ":");
 	}
-	else 
+	else
 	{
 		path_tk = NULL;
 	}
