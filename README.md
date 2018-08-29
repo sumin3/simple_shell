@@ -54,9 +54,7 @@ holberton.h	shell.c		shell_get_builtin.c	shell_helper2.c
 $
 `
 ## Output
-Short list of command and expected output  
-click [here](https://docs.google.com/document/d/1H4Syxiicin9logZRJHHHy5N5iDEbLYjIQmtcaPzVo-g/edit) for a more comprehensive list.  
-File|Desc 
+Command | Expected Output 
 ---|---
 ls | lists files in current directory
 /bin/ls | lists files in current directory
@@ -65,8 +63,10 @@ ls   -l | lists files in long format
 cd | changes directory to home direcotry
 cd - | displays previous directory and change into tht directory
 cd / | changes directory to root directory
-111 | command not found
+111 | command not found 
 
+Short list of command and expected output  
+click [here](https://docs.google.com/document/d/1H4Syxiicin9logZRJHHHy5N5iDEbLYjIQmtcaPzVo-g/edit) for a more comprehensive list.  
 
 
 ## Testing
