@@ -56,7 +56,7 @@ $
 ## Output
 Short list of command and expected output  
 click [here](https://docs.google.com/document/d/1H4Syxiicin9logZRJHHHy5N5iDEbLYjIQmtcaPzVo-g/edit) for a more comprehensive list.  
-Command | Expected output 
+File|Desc 
 ---|---
 ls | lists files in current directory
 /bin/ls | lists files in current directory
