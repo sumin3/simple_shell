@@ -64,7 +64,7 @@ int builtin_setenv(char **buff_tk, list_t **env, char *buff,
 	{
 		/* print error message and return (1) */
 		*stat = 1;
-		error_message(argv, input_count, 4, buff_tk);
+		error_message(argv, input_count, ": Invalid Argument for setenv\n", buff_tk);
 	}
 	else
 	{
@@ -117,7 +117,8 @@ int builtin_unsetenv(char **buff_tk, list_t **env, char *buff,
 	if (tokens != 2)
 	{
 		*stat = 1;
-		error_message(argv, input_count, 5, buff_tk);
+		error_message(argv, input_count,
+			      ": Invalid Argument for unsetenv\n", buff_tk);
 	}
 	else
 	{
@@ -131,13 +132,16 @@ int builtin_unsetenv(char **buff_tk, list_t **env, char *buff,
 			if (delete_node_at_index(env, index) == -1)
 			{
 				*stat = 1;
-				error_message(argv, input_count, 7, buff_tk);
+				error_message(argv, input_count,
+					      ": unsetenv failed\n", buff_tk);
 			}
 		}
 		else
 		{
 			*stat = 1;
-			error_message(argv, input_count, 6, buff_tk);
+			error_message(argv, input_count,
+				      ": Environment Variable not found\n",
+				      buff_tk);
 		}
 	}
 	free(buff_tk);
