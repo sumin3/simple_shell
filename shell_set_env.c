@@ -54,7 +54,6 @@ int builtin_setenv(char **buff_tk, list_t **env, char *buff,
 	(void) buff;
 	(void) argv;
 	(void) input_count;
-	(void) stat;
 
 	while (buff_tk[tokens])
 		tokens++;
@@ -110,7 +109,6 @@ int builtin_unsetenv(char **buff_tk, list_t **env, char *buff,
 	(void) buff;
 	(void) argv;
 	(void) input_count;
-	(void) stat;
 
 	while (buff_tk[tokens])
 		tokens++;
