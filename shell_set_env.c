@@ -30,7 +30,7 @@ int change_pwd(list_t **env_cp, char *key, char *add)
 	temp_str = _strcat(key, "=", add);
 	temp_val = make_key_val(temp_str);
 	temp_key = temp_str;
-	temp = add_node(env_cp, temp_key, temp_val);
+	temp = add_node_end(env_cp, temp_key, temp_val);
 	return (1);
 
 }
@@ -84,7 +84,7 @@ int builtin_setenv(char **buff_tk, list_t **env, char *buff,
 		tempstr = _strcat(buff_tk[1], "=", buff_tk[2]);
 		temp_val = make_key_val(tempstr);
 		temp_key = tempstr;
-		*env = add_node(env, temp_key, temp_val);
+		*env = add_node_end(env, temp_key, temp_val);
 	}
 	free(buff_tk);
 	return (1);
