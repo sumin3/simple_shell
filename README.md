@@ -65,8 +65,7 @@ cd - | displays previous directory and change into tht directory
 cd / | changes directory to root directory
 111 | command not found 
 
-Short list of command and expected output  
-click [here](https://docs.google.com/document/d/1H4Syxiicin9logZRJHHHy5N5iDEbLYjIQmtcaPzVo-g/edit) for a more comprehensive list.  
+click [here](https://docs.google.com/document/d/1H4Syxiicin9logZRJHHHy5N5iDEbLYjIQmtcaPzVo-g/edit) for a more comprehensive list of commands and expected output.  
 
 
 ## Testing
