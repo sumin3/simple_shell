@@ -14,6 +14,34 @@ void free_list(list_t *head)
 	}
 }
 /**
+ * add_node_end - adds a new node to end of list of integers
+ * @head: pointer to pointer of head of node
+ * @n: number to add to end of list
+ * Return: list of integers with new node added
+ */
+list_t *add_node_end(list_t **head, char *key, char *val)
+{
+	list_t *tmp_node, *new_node;
+
+	new_node = malloc(sizeof(list_t));
+	if (!new_node)
+		return (NULL);
+	new_node->key = key;
+	new_node->val = val;
+	new_node->next = NULL;
+	if (!*head)
+	{
+		*head = new_node;
+		return (*head);
+	}
+	tmp_node = *head;
+	while (tmp_node->next)
+		tmp_node = tmp_node->next;
+	tmp_node->next = new_node;
+	return (*head);
+}
+
+/**
  * add_node - adds a node to the beginning of a singly linked list
  * @head: Pointer of pointer to the head of list
  * @key: key of node
@@ -81,7 +109,7 @@ void get_env(list_t **head, char **env)
 		tempstr = _strdup(env[row]);
 		temp_val = make_key_val(tempstr);
 		temp_key = tempstr;
-		*head = add_node(head, temp_key, temp_val);
+		*head = add_node_end(head, temp_key, temp_val);
 		row++;
 	}
 }

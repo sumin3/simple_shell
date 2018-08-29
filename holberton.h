@@ -60,6 +60,7 @@ void signalhandler(int sig);
 int (*get_builtin(char **))(char **, list_t **, char *, char *, size_t, int *);
 
 list_t *add_node(list_t **head,  char *key,  char *val);
+list_t *add_node_end(list_t **head, char *key, char *val);
 int delete_node_at_index(list_t **head, unsigned int index);
 void get_env(list_t **head, char **env);
 /**
