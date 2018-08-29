@@ -39,25 +39,6 @@ int main(int argc __attribute__((unused)), char **argv, char **env)
 		if (get_builtin(buff_tk)(buff_tk, &env_cp, buff, argv[0],
 					input_count, &stat))
 			continue;
-		if (buff_tk[0][0] == '.')
-		{
-			if (buff_tk[0][1] == '/' && !buff_tk[0][2])
-			{
-				stat = 126;
-				error_message(*argv, input_count,
-						": Permission denied\n", buff_tk);
-				free(buff_tk);
-				buff_tk = NULL;
-				continue;
-			}
-			else if (!buff_tk[0][1])
-			{
-				stat = 0;
-				free(buff_tk);
-				buff_tk = NULL;
-				continue;
-			}
-		}
 		if (buff_tk[0][0] == '/' || buff_tk[0][0] == '.')
 			check_path = access(buff_tk[0], X_OK);
 		if (check_path == -1)
