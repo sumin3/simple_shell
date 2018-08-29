@@ -16,7 +16,8 @@ void free_list(list_t *head)
 /**
  * add_node_end - adds a new node to end of list of integers
  * @head: pointer to pointer of head of node
- * @n: number to add to end of list
+ * @key: key value
+ * @val: value
  * Return: list of integers with new node added
  */
 list_t *add_node_end(list_t **head, char *key, char *val)
@@ -41,26 +42,6 @@ list_t *add_node_end(list_t **head, char *key, char *val)
 	return (*head);
 }
 
-/**
- * add_node - adds a node to the beginning of a singly linked list
- * @head: Pointer of pointer to the head of list
- * @key: key of node
- * @val: value of node
- * Return: pointer to the linked list
- */
-list_t *add_node(list_t **head,  char *key,  char *val)
-{
-	list_t *tmp_node;
-
-	tmp_node = malloc(sizeof(list_t));
-	if (!tmp_node)
-		return (NULL);
-	tmp_node->key = key;
-	tmp_node->val = val;
-	tmp_node->next = *head;
-	*head = tmp_node;
-	return (*head);
-}
 /**
  * delete_node_at_index - deletes a node at index given
  * @head: pointer to pointer of head of list
