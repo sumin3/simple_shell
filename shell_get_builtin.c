@@ -54,7 +54,7 @@ int builtin_cd(char **buff_tk, list_t **env, char *buff,
 		tokens++;
 	pwd = _getenv("PWD", &temp);
 	/* for case cd */
-	if (tokens == 1 || (tokens == 2 &&
+	if (tokens == 1 || (tokens >= 2 &&
 				(buff_tk[1][0] == '~' ||
 				 _strcmp(buff_tk[1], home) == 0)))
 	{
