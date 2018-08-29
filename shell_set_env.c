@@ -118,7 +118,6 @@ int builtin_unsetenv(char **buff_tk, list_t **env, char *buff,
 		}
 		if (temp)
 		{
-			*stat = 0;
 			if (delete_node_at_index(env, index) == -1)
 			{
 				error_message(argv, input_count,
@@ -132,6 +131,7 @@ int builtin_unsetenv(char **buff_tk, list_t **env, char *buff,
 				      ": Environment Variable not found\n",
 				      buff_tk);
 		}
+		*stat = 0;
 	}
 	free(buff_tk);
 	return (1);
