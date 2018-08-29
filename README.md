@@ -8,10 +8,10 @@ A simple shell program to mimic sh shell.  It allows the user to execute command
 
 Built-ins:  
 exit [status]  
-env (print current environment values only)
-cd
-setenv (sets environment value)
-unsetenv (clear environment value)
+env (print current environment values)  
+cd  
+setenv (sets environment value)  
+unsetenv (clear environment value) 
 
 
 ## Getting Started
