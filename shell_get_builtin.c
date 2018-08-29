@@ -46,6 +46,7 @@ int builtin_cd(char **buff_tk, list_t **env, char *buff,
 	int check_cd, tokens = 0;
 	list_t *temp = *env;
 	char *add_str = NULL, *pwd = NULL, *str = NULL, *tmp_str = NULL;
+	char home[5] = "$HOME";
 
 	(void) buff;
 
@@ -53,7 +54,9 @@ int builtin_cd(char **buff_tk, list_t **env, char *buff,
 		tokens++;
 	pwd = _getenv("PWD", &temp);
 	/* for case cd */
-	if (tokens == 1)
+	if (tokens == 1 || (tokens >= 2 &&
+				(buff_tk[1][0] == '~' ||
+				 _strcmp(buff_tk[1], home) == 0)))
 	{
 		add_str = _getenv("HOME", &temp);
 		check_cd = chdir(add_str);
