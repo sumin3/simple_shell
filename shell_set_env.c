@@ -84,6 +84,7 @@ int builtin_setenv(char **buff_tk, list_t **env, char *buff,
 		{
 			*env = add_node_end(env, temp_key, temp_val);
 		}
+		*stat = 0;
 	}
 	free(buff_tk);
 	return (1);
@@ -142,6 +143,7 @@ int builtin_unsetenv(char **buff_tk, list_t **env, char *buff,
 				      ": Environment Variable not found\n",
 				      buff_tk);
 		}
+		*stat = 0;
 	}
 	free(buff_tk);
 	return (1);
