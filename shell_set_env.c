@@ -47,13 +47,10 @@ int builtin_setenv(char **buff_tk, list_t **env, char *buff,
 {
 	list_t *temp = *env;
 	char *tempstr;
-	unsigned int index = 0;
 	int  tokens = 0;
 	char *temp_val, *temp_key;
 
 	(void) buff;
-	(void) argv;
-	(void) input_count;
 
 	while (buff_tk[tokens])
 		tokens++;
@@ -69,10 +66,7 @@ int builtin_setenv(char **buff_tk, list_t **env, char *buff,
 		temp_val = make_key_val(tempstr);
 		temp_key = tempstr;
 		while (temp && _strcmp(buff_tk[1], temp->key))
-		{
-			index++;
 			temp = temp->next;
-		}
 		if (temp)
 		{
 			free(temp->key);
@@ -107,9 +101,6 @@ int builtin_unsetenv(char **buff_tk, list_t **env, char *buff,
 	int tokens = 0;
 
 	(void) buff;
-	(void) argv;
-	(void) input_count;
-
 	while (buff_tk[tokens])
 		tokens++;
 	if (tokens < 2)
@@ -120,7 +111,6 @@ int builtin_unsetenv(char **buff_tk, list_t **env, char *buff,
 	}
 	else
 	{
-		*stat = 0;
 		while (temp && _strcmp(buff_tk[1], temp->key))
 		{
 			index++;
@@ -128,9 +118,9 @@ int builtin_unsetenv(char **buff_tk, list_t **env, char *buff,
 		}
 		if (temp)
 		{
+			*stat = 0;
 			if (delete_node_at_index(env, index) == -1)
 			{
-				*stat = 1;
 				error_message(argv, input_count,
 					      ": unsetenv failed\n", buff_tk);
 			}
