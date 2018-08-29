@@ -18,8 +18,6 @@ int change_pwd(list_t **env_cp, char *key, char *add)
 		index++;
 		temp = temp->next;
 	}
-	if (!temp)
-		return (-1);
 	if (temp)
 	{
 		if (delete_node_at_index(env_cp, index) == -1)

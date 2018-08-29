@@ -43,7 +43,7 @@ int (*get_builtin(char **s))(char **buff_tk, list_t
 int builtin_cd(char **buff_tk, list_t **env, char *buff,
 		char *argv, size_t input_count, int *stat)
 {
-	int check_cd, tokens = 0;
+	int check_cd, tokens = 0, free_pwd = 0;
 	list_t *temp = *env;
 	char *add_str = NULL, *pwd = NULL, *str = NULL, *tmp_str = NULL;
 	char home[5] = "$HOME";
@@ -53,6 +53,12 @@ int builtin_cd(char **buff_tk, list_t **env, char *buff,
 	while (buff_tk[tokens])
 		tokens++;
 	pwd = _getenv("PWD", &temp);
+	if (pwd == NULL)
+	{
+		free_pwd = 1;
+		pwd = getcwd(pwd, 0);
+		change_pwd(env, "PWD", pwd);
+	}
 	/* for case cd */
 	if (tokens == 1 || (tokens >= 2 &&
 				(buff_tk[1][0] == '~' ||
@@ -120,6 +126,8 @@ int builtin_cd(char **buff_tk, list_t **env, char *buff,
 			return (1);
 		}
 	}
+	if (free_pwd == 1)
+		free(pwd);
 	free(buff_tk);
 	return (1);
 }
