@@ -66,6 +66,9 @@ int builtin_setenv(char **buff_tk, list_t **env, char *buff,
 	}
 	else
 	{
+		tempstr = _strcat(buff_tk[1], "=", buff_tk[2]);
+		temp_val = make_key_val(tempstr);
+		temp_key = tempstr;
 		while (temp && _strcmp(buff_tk[1], temp->key))
 		{
 			index++;
@@ -73,16 +76,14 @@ int builtin_setenv(char **buff_tk, list_t **env, char *buff,
 		}
 		if (temp)
 		{
-			if (delete_node_at_index(env, index) == -1)
-			{
-				free(buff_tk);
-				_exit(1);
-			}
+			free(temp->key);
+			temp->key = temp_key;
+			temp->val = temp_val;
 		}
-		tempstr = _strcat(buff_tk[1], "=", buff_tk[2]);
-		temp_val = make_key_val(tempstr);
-		temp_key = tempstr;
-		*env = add_node_end(env, temp_key, temp_val);
+		else
+		{
+			*env = add_node_end(env, temp_key, temp_val);
+		}
 	}
 	free(buff_tk);
 	return (1);
