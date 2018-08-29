@@ -57,7 +57,7 @@ int builtin_setenv(char **buff_tk, list_t **env, char *buff,
 	if (tokens < 3)
 	{
 		/* print error message and return (1) */
-		*stat = 1;
+		*stat = 0;
 		error_message(argv, input_count, ": Invalid Argument for setenv\n", buff_tk);
 	}
 	else
