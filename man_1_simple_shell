@@ -29,10 +29,22 @@ section, path search.
 - exit the shell (terminate the shell process).
 .IP
 shell can also exit with a specific return value. For example, exit n (where n is a positive number that is less or equal INT_MAX).
+.PP
+.B cd
+- change current working directory
+.PP
+.B setenv
+- set environment variable
+.IP
+Initilize a new environment variable, or modify an existing one.
+.PP
+.B unsetenv
+- remove a environment variable
+
 .SH Path Search
 After check the command is not a builtin, the shell calls the access function to check if the command is able to execute or not. If the command is not able to execute, the shell searches the path by using the PATH variable (a series of entries separated by colons). Each entry consists of a directory name. The shell concatenate the directory name and the command. Then, pass the concatencated string to access function to check if the command with path (concatencated string) is able to execute or not.
 .HP
-If path is not found, the shell writes error message to STDOUT_FILENO.
+If path is not found, the shell writes error message to STDERR_FILENO.
 .SH SEE ALSO
 .I sh(1), bash(1)
 .SH BUGS
@@ -42,5 +54,4 @@ No error message when permission denied.
 Sumin Yu <suminyu@yahoo.com>
 .PP
 Peter Wu <pete.h.wu@gmail.com>
-
 
