@@ -58,7 +58,7 @@ int builtin_setenv(char **buff_tk, list_t **env, char *buff,
 
 	while (buff_tk[tokens])
 		tokens++;
-	if (tokens != 3)
+	if (tokens < 3)
 	{
 		/* print error message and return (1) */
 		*stat = 1;
@@ -113,7 +113,7 @@ int builtin_unsetenv(char **buff_tk, list_t **env, char *buff,
 
 	while (buff_tk[tokens])
 		tokens++;
-	if (tokens != 2)
+	if (tokens < 2)
 	{
 		*stat = 1;
 		error_message(argv, input_count,
