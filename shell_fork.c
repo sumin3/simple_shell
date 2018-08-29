@@ -38,6 +38,7 @@ void exec_command(char *argv, char **buff_tk,
 		{
 			/*free(buff_tk[0]);*/
 			free(buff_tk1);
+			buff_tk1 = NULL;
 		}
 		free(buff_tk);
 		/*free(buff);*/
