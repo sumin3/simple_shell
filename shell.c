@@ -43,7 +43,6 @@ int main(int argc __attribute__((unused)), char **argv, char **env)
 			check_path = access(buff_tk[0], X_OK);
 		if (check_path == -1)
 		{
-
 			check_permi = permi(buff_tk, argv[0], input_count, &stat);
 			if (check_permi == 0)
 				continue;

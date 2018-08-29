@@ -45,7 +45,7 @@ int builtin_cd(char **buff_tk, list_t **env, char *buff,
 {
 	int check_cd, tokens = 0;
 	list_t *temp = *env;
-	char *add_str = NULL, *pwd = NULL;
+	char *add_str = NULL, *pwd = NULL, *str = NULL, *tmp_str = NULL;
 	char home[5] = "$HOME";
 
 	(void) buff;
@@ -84,7 +84,14 @@ int builtin_cd(char **buff_tk, list_t **env, char *buff,
 		}
 		else if (buff_tk[1][1] != '\0')
 		{
-			error_message(argv, input_count, 9, buff_tk);
+			tmp_str = malloc(sizeof(char) * 3);
+			tmp_str[0] = buff_tk[1][0];
+			tmp_str[1] = buff_tk[1][1];
+			tmp_str[2] = '\0';
+			str = _strcat(": Illegal option ", tmp_str, "\n");
+			error_message(argv, input_count, str, buff_tk);
+			free(tmp_str);
+			free(str);
 			free(buff_tk);
 			buff_tk = NULL;
 			*stat = 2;
@@ -104,7 +111,9 @@ int builtin_cd(char **buff_tk, list_t **env, char *buff,
 		}
 		else if (check_cd == -1)
 		{
-			error_message(argv, input_count, 8, buff_tk);
+			str = _strcat(": can't cd to ", buff_tk[1], "\n");
+			error_message(argv, input_count, str, buff_tk);
+			free(str);
 			*stat = 2;
 			free(buff_tk);
 			buff_tk = NULL;
@@ -195,6 +204,7 @@ int  builtin_exit(char **buff_tk, list_t **env, char *buff,
 	unsigned long temp = 0;
 	int error_num;
 	int shifter = ((sizeof(long) - 1) * 8);
+	char *str = NULL;
 
 	if (buff_tk && buff_tk[1])
 	{
@@ -202,7 +212,11 @@ int  builtin_exit(char **buff_tk, list_t **env, char *buff,
 		{
 			if (buff_tk[1][i] < '0' || buff_tk[1][i] > '9')
 			{
-				error_num = error_message(argv, input_count, 3, buff_tk);
+				str = _strcat(": Illegal number: ",
+						    buff_tk[1], "\n");
+				error_num = error_message(argv, input_count,
+							  str, buff_tk);
+				free(str);
 				*stat = 2;
 				if (error_num == 1)
 				{
@@ -217,7 +231,10 @@ int  builtin_exit(char **buff_tk, list_t **env, char *buff,
 				if (temp > INT_MAX)
 				{
 					*stat = 2;
-					error_num = error_message(argv, input_count, 3, buff_tk);
+					str = _strcat(": Illegal number:",
+						      buff_tk[1], "\n");
+					error_num = error_message(argv, input_count, str, buff_tk);
+					free(str);
 					if (error_num == 1)
 					{
 						free(buff_tk);

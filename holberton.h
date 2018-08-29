@@ -156,7 +156,7 @@ char *path_helper(char *path, char **buff_tk, char *argv,
 		size_t input_count, int *stat);
 int _strlen(char *s);
 char *num_to_str(size_t n);
-int error_message(char *argv, int input_count, int error_num, char **buff_tk);
+int error_message(char *argv, int input_count, char *error, char **buff_tk);
 int permi(char **buff_tk, char *argv, int input_count, int *stat);
 /**
  * check_input - checks command for newline character
