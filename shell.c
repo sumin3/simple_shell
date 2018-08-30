@@ -12,7 +12,7 @@ int main(int argc __attribute__((unused)), char **argv, char **env)
 	list_t *env_cp = NULL;
 	ssize_t read;
 	size_t input_count = 0, br = 0;
-	int check_path = -1, check_permi, stat = 0;
+	int check_path = -1, stat = 0;
 	char *path = NULL, *buff = NULL, *buff_tk1 = NULL, **buff_tk = NULL;
 
 	get_env(&env_cp, env);
@@ -60,9 +60,6 @@ int main(int argc __attribute__((unused)), char **argv, char **env)
 			check_path = access(buff_tk[0], X_OK);
 		if (check_path == -1)
 		{
-			check_permi = permi(buff_tk, argv[0], input_count, &stat);
-			if (check_permi == 0)
-				continue;
 			path = _getenv("PATH", &env_cp);
 			buff_tk1 = path_helper(path, buff_tk, argv[0], input_count, &stat);
 			if (buff_tk1 == NULL)
