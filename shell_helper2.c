@@ -49,11 +49,16 @@ char *path_helper(char *path, char **buff_tk, char *argv,
 
 	if (path)
 	{
-		if (path[_strlen(path) - 1] == ':')
+		if (path[0] == ':' && path[_strlen(path) - 1] == ':')
+			path_cp = _strcat(".", path, ".");
+		else if (path[0] == ':')
+			path_cp = _strcat(".", path, "");
+		else if (path[_strlen(path) - 1] == ':')
 			path_cp = _strcat(path, ".", "");
 		else
 			path_cp = _strdup(path);
-		path_tk = create_arg_list(path_tk, path_cp, ":");
+		path_tk = create_arg_list(path_tk,
+					  path_cp, ":");
 	}
 	else
 	{
