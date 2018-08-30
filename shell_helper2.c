@@ -103,22 +103,11 @@ char *path_helper(char *path, char **buff_tk, char *argv,
  */
 char *_getenv(char *name, list_t **env)
 {
-	int i = 0, match = 0;
 	list_t *temp = *env;
 
 	while (temp)
 	{
-		for (i = 0; name[i]; i++)
-		{
-			if (temp->key[i] == name[i])
-				match = 1;
-			else
-			{
-				match = 0;
-				break;
-			}
-		}
-		if (match == 1)
+		if (_strcmp(temp->key, name) == 0)
 			return (temp->val);
 		temp = temp->next;
 	}
