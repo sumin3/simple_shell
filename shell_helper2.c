@@ -1,3 +1,4 @@
+
 #include "holberton.h"
 /**
  * num_to_str - convert integer to string
@@ -48,9 +49,11 @@ char *path_helper(char *path, char **buff_tk, char *argv,
 
 	if (path)
 	{
-		path_cp = _strdup(path);
-		path_tk = create_arg_list(path_tk,
-			path_cp, ":");
+		if (path[_strlen(path) - 1] == ':')
+			path_cp = _strcat(path, ".", "");
+		else
+			path_cp = _strdup(path);
+		path_tk = create_arg_list(path_tk, path_cp, ":");
 	}
 	else
 	{
