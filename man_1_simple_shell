@@ -10,18 +10,17 @@
 is the simple command interpreter that execute commands read from a terminal command line.
 .SH INVOCATION
 This shell can run in interactive mode. It reads commands from user input on a tty (stands for teletype - the original terminals used a line printer for output and a keyboard for input). It also can run in non-interactive mode that the shell can not ineract with the user. It runs from a script or similar. 
-.SH Bulitin Search
+.SH Builtin Search
 .TP
 When locating a command, the shell first check if the command is a builtin command or not by that name. If a builtin command found, the shell calls the corresponding function by that name. After the corresponding function finishes it's job, the shell skips rest of codes and goes to the next iteration of the outer while loop.
 .HP
-If a builtin command is not found, one of two things happen:
+If builtin search fails, one of two things happens:
 .IP 1.
-If the user input more than one word in command line, the shell writes error message to STDOUT_FILENO. 
+If the builtin command is found with illegal argument, the shell writes error message to STDERR_FILENO. 
 .IP 2.
-If the user input only one word in command line, the shell goes to next
-section, path search.
+If builtin command is not found, the shell goes to next section, path search.
 .PP
-.SH Bulitin Command
+.SH Builtin Command
 .B env
 - prints the current environment
 .PP
