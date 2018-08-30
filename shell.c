@@ -57,7 +57,25 @@ int main(int argc __attribute__((unused)), char **argv, char **env)
 			}
 		}
 		if (buff_tk[0][0] == '/' || buff_tk[0][0] == '.')
-			check_path = access(buff_tk[0], X_OK);
+		{
+			check_path = access(buff_tk[0], F_OK);
+			if (check_path == -1)
+			{
+				stat = 127;
+				error_message(*argv, input_count,
+						": not found\n", buff_tk);
+				free(buff_tk);
+				continue;
+			}
+			if (access(buff_tk[0], X_OK) == -1)
+			{
+				stat = 126;
+				error_message(*argv, input_count,
+						": Permission denied\n", buff_tk);
+				free(buff_tk);
+				continue;
+			}
+		}
 		if (check_path == -1)
 		{
 			path = _getenv("PATH", &env_cp);
