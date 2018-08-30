@@ -66,6 +66,16 @@ char *path_helper(char *path, char **buff_tk, char *argv,
 			free(path_tk);
 			return (concat_path);
 		}
+		if (access(concat_path, F_OK) == 0)
+		{
+			error_message(argv, input_count, ": Permission denied\n", buff_tk);
+			free(path_cp);
+			free(path_tk);
+			*stat = 126;
+			free(buff_tk);
+			free(concat_path);
+			return (NULL);
+		}
 		i++;
 		free(concat_path);
 	}
